@@ -110,8 +110,61 @@ O produto final será uma aplicação web completa, com backend distribuído e f
 
 #### Representação dos Requisitos
 
-<!-- TODO: Fazer diagrama de casos de uso -->
-<!-- ![Diagrama de Casos de Uso](representacao-requisitos.png) -->
+``` mermaid
+stateDiagram-v2
+    state "Usuário Não Registrado" as NR
+    state "Usuário Registrado" as UR
+    
+    state "Sistema MapShare" as Sistema {
+        state "Gerenciamento de Usuários" as GU {
+            [*] --> Cadastro
+            Cadastro --> Login
+            Login --> [*]
+        }
+        
+        state "Mapas Personalizados" as MP {
+            [*] --> Criar
+            Criar --> Editar
+            Criar --> Definir_Privacidade
+            Definir_Privacidade --> Público
+            Definir_Privacidade --> Protegido_por_Link
+            Definir_Privacidade --> Privado
+            Editar --> Adicionar_Marcador
+            Editar --> [*]
+        }
+        
+        state "Mapa Global" as MG {
+            [*] --> Visualizar
+            Visualizar --> Adicionar_Marcacao
+            Visualizar --> Curtir_Marcacao
+            Adicionar_Marcacao --> [*]
+            Curtir_Marcacao --> [*]
+        }
+        
+        state "Mapas Públicos" as MPB {
+            [*] --> Listar
+            Listar --> Visualizar_Mapa
+            Visualizar_Mapa --> Curtir_Mapa
+            Visualizar_Mapa --> Favoritar_Mapa
+            Curtir_Mapa --> [*]
+            Favoritar_Mapa --> [*]
+        }
+        
+        state "Compartilhamento" as SC {
+            [*] --> Gerar_Link
+            Gerar_Link --> Compartilhar
+            Compartilhar --> [*]
+        }
+    }
+    
+    NR --> GU: Acessar
+    NR --> MPB: Visualizar mapas públicos
+    UR --> MP: Gerenciar mapas
+    UR --> MG: Interagir
+    UR --> MPB: Interagir
+    UR --> SC: Compartilhar mapas
+```
+
 
 O diagrama acima representa os principais casos de uso do sistema, incluindo a interação dos usuários com mapas personalizados e o mapa global colaborativo. Os atores principais são os usuários registrados e não registrados, com diferentes níveis de permissão e acesso às funcionalidades do sistema.
 
