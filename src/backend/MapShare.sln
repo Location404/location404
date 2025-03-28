@@ -6,8 +6,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapShare.AppHost", "MapShar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapShare.ServiceDefaults", "MapShare.ServiceDefaults\MapShare.ServiceDefaults.csproj", "{384D1519-B2C3-477C-83A2-F9357E01AD34}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapShare.ApiService", "MapShare.ApiService\MapShare.ApiService.csproj", "{C0D659B0-C8F0-48A5-ADD1-41F32403275F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,10 +20,6 @@ Global
 		{384D1519-B2C3-477C-83A2-F9357E01AD34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{384D1519-B2C3-477C-83A2-F9357E01AD34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{384D1519-B2C3-477C-83A2-F9357E01AD34}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C0D659B0-C8F0-48A5-ADD1-41F32403275F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C0D659B0-C8F0-48A5-ADD1-41F32403275F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C0D659B0-C8F0-48A5-ADD1-41F32403275F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C0D659B0-C8F0-48A5-ADD1-41F32403275F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
