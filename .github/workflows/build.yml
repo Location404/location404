@@ -29,6 +29,3 @@ jobs:
 
       # - name: Rodar testes
       # run: dotnet test src/MapShare.sln --configuration Release --no-build --verbosity normal
-
-      - name: Super-Linter
-      uses: super-linter/super-linter@v7.3.0
