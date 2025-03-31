@@ -11,6 +11,19 @@
   "secrets": {
     "salt": "umlHDfAYaOvXMUZt",
     "hash": "ATHmbFKNzMtcwWPOIsZzrLFcrSiacHfOwhrZW4FTfUY=",
-    "secrets": {}
-  }
+    "secrets": {
+      "username": {
+        "value": "umlHDfAYaOvXMUZtlW0ASlU4E1ivuZziSPzTER0rNYu2"
+      },
+      "password": {
+        "value": "umlHDfAYaOvXMUZtlW0ASlU4E1ivuZziSPzTER0rNYu2"
+      },
+      "postgresql": {
+        "POSTGRES_PASSWORD": "umlHDfAYaOvXMUZtlW0ASlU4E1ivuZziSPzTER0rNYu2"
+      },
+      "postgresdb": {},
+      "redis": {}
+    }
+  },
+  "processAllComponents": true
 }

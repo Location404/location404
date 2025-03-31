@@ -1,4 +1,61 @@
 {
   "$schema": "https://json.schemastore.org/aspire-8.0.json",
-  "resources": {}
+  "resources": {
+    "username": {
+      "type": "parameter.v0",
+      "value": "{username.inputs.value}",
+      "inputs": {
+        "value": {
+          "type": "string",
+          "secret": true
+        }
+      }
+    },
+    "password": {
+      "type": "parameter.v0",
+      "value": "{password.inputs.value}",
+      "inputs": {
+        "value": {
+          "type": "string",
+          "secret": true
+        }
+      }
+    },
+    "postgresql": {
+      "type": "container.v0",
+      "connectionString": "Host={postgresql.bindings.tcp.host};Port={postgresql.bindings.tcp.port};Username={username.value};Password={password.value}",
+      "image": "docker.io/library/postgres:17.2",
+      "env": {
+        "POSTGRES_HOST_AUTH_METHOD": "scram-sha-256",
+        "POSTGRES_INITDB_ARGS": "--auth-host=scram-sha-256 --auth-local=scram-sha-256",
+        "POSTGRES_USER": "{username.value}",
+        "POSTGRES_PASSWORD": "{password.value}"
+      },
+      "bindings": {
+        "tcp": {
+          "scheme": "tcp",
+          "protocol": "tcp",
+          "transport": "tcp",
+          "targetPort": 5432
+        }
+      }
+    },
+    "postgresdb": {
+      "type": "value.v0",
+      "connectionString": "{postgresql.connectionString};Database=postgresdb"
+    },
+    "redis": {
+      "type": "container.v0",
+      "connectionString": "{redis.bindings.tcp.host}:{redis.bindings.tcp.port}",
+      "image": "docker.io/library/redis:7.4",
+      "bindings": {
+        "tcp": {
+          "scheme": "tcp",
+          "protocol": "tcp",
+          "transport": "tcp",
+          "targetPort": 6379
+        }
+      }
+    }
+  }
 }

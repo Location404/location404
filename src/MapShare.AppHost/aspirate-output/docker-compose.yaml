@@ -3,8 +3,32 @@ services:
     container_name: "aspire-dashboard"
     image: "mcr.microsoft.com/dotnet/aspire-dashboard:9.0"
     environment:
-      DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS: "false"
+      DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS: "true"
     ports:
-      - target: 18888
-        published: 18888
+    - target: 18888
+      published: 18888
+    restart: unless-stopped
+  postgresql:
+    container_name: "postgresql"
+    image: "docker.io/library/postgres:17.2"
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: "scram-sha-256"
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256 --auth-local=scram-sha-256"
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "admin"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "http://aspire-dashboard:18889"
+      OTEL_SERVICE_NAME: "postgresql"
+    ports:
+    - target: 5432
+      published: 5432
+    restart: unless-stopped
+  redis:
+    container_name: "redis"
+    image: "docker.io/library/redis:7.4"
+    environment:
+      OTEL_EXPORTER_OTLP_ENDPOINT: "http://aspire-dashboard:18889"
+      OTEL_SERVICE_NAME: "redis"
+    ports:
+    - target: 6379
+      published: 6379
     restart: unless-stopped
