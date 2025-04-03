@@ -4,7 +4,6 @@
 * **Título do Projeto**: MapShare - Plataforma de Compartilhamento e Visualização de Mapas em Tempo Real
 * **Nome do Estudante**: Ryan Gabriel Mazzei Bromati
 * **Curso**: Engenharia de Software
-* **Data de Entrega**: 25/03/2025
 
 ## Resumo
 
