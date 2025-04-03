@@ -280,9 +280,8 @@ Detalhamento das classes e interfaces para cada componente será desenvolvido du
 - **MongoDB Compass**: Gerenciamento visual do MongoDB.
 - **Jest**: Framework de testes para frontend.
 - **xUnit**: Framework de testes para backend.
-<!-- - **SonarQube**: Análise estática de código e qualidade. -->
-<!-- - **Grafana**: Visualização de métricas e monitoramento. -->
-<!-- - **Prometheus**: Coleta de métricas em tempo real. -->
+- **Grafana**: Visualização de métricas e monitoramento.
+- **Prometheus**: Coleta de métricas em tempo real.
 
 ### 3.4. Considerações de Segurança
 
@@ -306,10 +305,10 @@ Após a aprovação deste RFC, os próximos passos para o desenvolvimento do pro
 1. Refinamento dos requisitos baseado no feedback dos professores
 2. Definição detalhada da arquitetura e diagrama de componentes
 3. Criação do projeto base com estrutura de microserviços
-4. Implementação do serviço de autenticação
-5. Desenvolvimento do MVP para funcionalidades básicas de mapa
-6. Implementação da comunicação entre serviços
-7. Desenvolvimento da interface básica do usuário
+4. Configurar infrastrutura da aplicação e pipeline CI/CD
+5. Implementação do serviço de autenticação
+6. Desenvolvimento do MVP para funcionalidades básicas de mapa
+7. Implementação da comunicação entre serviços
 
 **Portfólio II (Médio Prazo - 3 a 6 meses):**
 1. Implementação completa de todos os microserviços
@@ -341,6 +340,8 @@ Após a aprovação deste RFC, os próximos passos para o desenvolvimento do pro
   - [Serilog](https://serilog.net/)
   - [AutoMapper](https://automapper.org/)
   - [FluentValidation](https://fluentvalidation.net/)
+  - [MediatR](https://github.com/jbogard/MediatR)
+  - [ErrorOr](https://github.com/amantinband/error-or)
 
 ## 6. Apêndices
 
@@ -363,18 +364,18 @@ Após a aprovação deste RFC, os próximos passos para o desenvolvimento do pro
 
 | Componente | Estimativa (horas) |
 |------------|-------------------|
-| Configuração da Infraestrutura | 40 |
-| Serviço de Autenticação | 60 |
-| Serviço de Mapas Pessoais | 80 |
-| Serviço de Mapa Global | 100 |
-| Serviço de Marcadores | 60 |
-| Serviço de Interações | 40 |
-| Serviço de Compartilhamento | 50 |
-| Serviço de Notificações | 30 |
-| Frontend Angular | 120 |
+| Configuração da Infraestrutura | 24 |
+| Serviço de Autenticação | 12 |
+| Serviço de Mapas Pessoais | 16 |
+| Serviço de Mapa Global | 16 |
+| Serviço de Marcadores | 8 |
+| Serviço de Interações | 8 |
+| Serviço de Compartilhamento | 24 |
+| Serviço de Notificações | 32 |
+| Frontend Angular | 96 |
 | Testes e QA | 80 |
-| DevOps e CI/CD | 40 |
-| **Total** | **700** |
+| DevOps e CI/CD | 8 |
+| **Total** | **299** |
 
 ## 7. Avaliações de Professores
 
