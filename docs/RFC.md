@@ -176,15 +176,14 @@ A arquitetura do sistema será baseada em microserviços, com cada serviço resp
 Os principais componentes da arquitetura são:
 
 1. **API Gateway**: Gerencia a comunicação entre o frontend e os microserviços, implementando roteamento, autenticação, rate limiting e cache.
-2. **Serviço de Autenticação**: Gerencia usuários, autenticação e autorização usando JWT e OAuth 2.0.
-3. **Serviço de Mapas Pessoais**: Gerencia mapas criados pelos usuários, incluindo criação, edição e configurações de privacidade.
-4. **Serviço de Mapa Global**: Gerencia o mapa colaborativo compartilhado, incluindo visualização e interação.
-5. **Serviço de Marcadores**: Gerencia pontos de interesse, incluindo criação, edição e categorização.
-6. **Serviço de Interações**: Gerencia curtidas, favoritos e interações entre usuários e mapas/marcações.
-7. **Serviço de Compartilhamento**: Gerencia os diferentes níveis de privacidade e compartilhamento de mapas.
-8. **Serviço de Notificações**: Gerencia o envio de notificações em tempo real para usuários.
-9. **SignalR Hub**: Gerencia comunicação em tempo real com o frontend para atualizações instantâneas.
-10. **Serviço de Análise**: Coleta e processa métricas de uso para análise e monitoramento.
+
+2. **Serviço de Autenticação:** Gerencia usuários, autenticação e autorização usando JWT e OAuth 2.0.
+
+3. **Serviço de Mapa Global:** Gerencia o mapa colaborativo compartilhado, incluindo visualização, interação e a regra de uma marcação por usuário.
+
+4. **Serviço de Notificações:** Gerencia o envio de notificações em tempo real, rastreamento de eventos e preferências dos usuários.
+
+5. **SignalR Hub:** Gerencia comunicação bidirecional em tempo real com o frontend, incluindo propagação de atualizações instantâneas e conexões persistentes.
 
 #### Padrões de Arquitetura
 
