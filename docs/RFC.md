@@ -8,7 +8,7 @@
 
 ## Resumo
 
-Este documento apresenta uma proposta para o desenvolvimento de uma plataforma de compartilhamento e visualização de mapas em tempo real. O projeto visa criar um sistema baseado em microserviços com .NET Aspire, que permitirá aos usuários criar e compartilhar mapas, adicionar pontos de interesse, definir níveis de privacidade (público, protegido por link, privado), e interagir com as marcações de outros usuários através de curtidas e favoritos. O sistema utilizará tecnologias modernas de desenvolvimento web, incluindo C# .NET 8+, Angular 18+ para o frontend, e uma arquitetura híbrida de banco de dados com PostgreSQL e MongoDB. Este RFC busca a aprovação inicial para o desenvolvimento do projeto de portfólio, apresentando detalhadamente o escopo, requisitos, arquitetura proposta e as tecnologias a serem utilizadas.
+Este documento apresenta uma proposta para o desenvolvimento de uma plataforma de compartilhamento e visualização de mapas em tempo real. O projeto visa criar um sistema baseado em microserviços com .NET Aspire, que permitirá aos usuários criar e compartilhar mapas, adicionar pontos de interesse, definir níveis de privacidade (público, protegido por link, privado), e interagir com as marcações de outros usuários através de curtidas e favoritos. O sistema utilizará tecnologias modernas de desenvolvimento web, incluindo C# .NET 8+, Angular 18+ para o frontend, e uma arquitetura híbrida de banco de dados com PostgreSQL e MongoDB.
 
 ## 1. Introdução
 
@@ -40,7 +40,7 @@ Desenvolver uma plataforma de compartilhamento e visualização de mapas em temp
 
 ### Tema do Projeto
 
-O projeto consiste no desenvolvimento de uma plataforma web que permite aos usuários criar mapas personalizados, compartilhá-los com diferentes níveis de privacidade (público, protegido por link, privado), e colaborar em um mapa global onde cada usuário pode adicionar apenas uma marcação. A plataforma permitirá interações como curtidas em marcações individuais e favoritar mapas públicos para acesso facilitado. A plataforma será desenvolvida utilizando uma arquitetura de microserviços com .NET Aspire, explorando diferentes formas de comunicação entre serviços e proporcionando uma experiência em tempo real.
+O projeto consiste no desenvolvimento de uma plataforma web que permite aos usuários criar mapas personalizados, compartilhá-los com diferentes níveis de privacidade (público, protegido por link, privado), e colaborar em um mapa global onde cada usuário pode adicionar apenas uma marcação. A plataforma permitirá interações como curtidas em marcações individuais e favoritar mapas públicos para acesso facilitado. 
 
 O produto final será uma aplicação web completa, com backend distribuído e frontend responsivo, que demonstrará a aplicação prática de conhecimentos avançados em engenharia de software.
 
