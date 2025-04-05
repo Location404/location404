@@ -1,393 +1,329 @@
-# Request for Comments (RFC)
+# RFC - CacheHunt: Aplicativo de Geocaching com Gamificação em .NET Aspire e Angular
 
-## Capa
-* **Título do Projeto**: MapShare - Plataforma de Compartilhamento e Visualização de Mapas em Tempo Real
+* **Título do Projeto**: CacheHunt - Plataforma de Geocaching com Elementos de Gamificação
 * **Nome do Estudante**: Ryan Gabriel Mazzei Bromati
 * **Curso**: Engenharia de Software
+* **Data de Entrega**: [Data]
 
 ## Resumo
 
-Este documento apresenta uma proposta para o desenvolvimento de uma plataforma de compartilhamento e visualização de mapas em tempo real. O projeto visa criar um sistema baseado em microserviços com .NET Aspire, que permitirá aos usuários criar e compartilhar mapas, adicionar pontos de interesse, definir níveis de privacidade (público, protegido por link, privado), e interagir com as marcações de outros usuários através de curtidas e favoritos. O sistema utilizará tecnologias modernas de desenvolvimento web, incluindo C# .NET 8+, Angular 18+ para o frontend, e uma arquitetura híbrida de banco de dados com PostgreSQL e MongoDB.
+Este documento apresenta a proposta de desenvolvimento do CacheHunt, uma plataforma de geocaching com elementos de gamificação desenvolvida em .NET Aspire e Angular. O projeto visa criar uma solução completa para entusiastas de geocaching, implementando as principais regras e conceitos do jogo, além de incorporar um sistema de conquistas, níveis e recompensas para aumentar o engajamento dos usuários. O documento detalha a arquitetura, requisitos, stack tecnológica e considerações de design para este trabalho de conclusão de curso em Engenharia de Software.
 
 ## 1. Introdução
 
-### Contexto
+### **Contexto**
 
-A visualização e compartilhamento de informações geográficas têm se tornado cada vez mais importantes nas aplicações modernas. Desde aplicativos de navegação até plataformas de compartilhamento de experiências, a capacidade de interagir com mapas de forma colaborativa representa um avanço significativo na forma como consumimos e produzimos informações geoespaciais. Em um mundo cada vez mais conectado, a necessidade de compartilhar experiências localizadas geograficamente cresce exponencialmente, criando oportunidades para inovação no campo das tecnologias geoespaciais.
+Geocaching é uma atividade recreativa outdoor que combina elementos de caça ao tesouro e exploração, onde participantes usam dispositivos com GPS para esconder e encontrar recipientes chamados "geocaches" ou "caches" em locais ao redor do mundo. O CacheHunt surge como uma solução moderna para esta prática, trazendo elementos de gamificação para enriquecer a experiência dos usuários.
 
-### Justificativa
+### **Justificativa**
 
-Apesar da existência de diversas soluções para visualização de mapas, há uma lacuna no mercado para plataformas que permitam o compartilhamento e a colaboração em tempo real de forma intuitiva e escalável. Este projeto visa preencher essa lacuna, oferecendo uma solução moderna que demonstre as capacidades das tecnologias emergentes como .NET Aspire e arquiteturas de microserviços.
+O desenvolvimento do CacheHunt é relevante para o campo da Engenharia de Software por diversos motivos:
 
-O desenvolvimento desta plataforma proporciona uma oportunidade significativa para explorar e aplicar conceitos avançados de engenharia de software, incluindo arquitetura distribuída, comunicação entre serviços, persistência poliglota e desenvolvimento de interfaces interativas. A implementação de uma solução que integra essas tecnologias avançadas representa um desafio técnico relevante que contribuirá para a formação profissional em engenharia de software.
+1. Integra tecnologias modernas (.NET Aspire e Angular) para resolver problemas reais de geolocalização e interação social
+2. Implementa conceitos avançados de desenvolvimento de software
+3. Aplica princípios de gamificação para aumentar engajamento do usuário
+4. Explora desafios técnicos como persistência de dados geoespaciais, autenticação segura e integração com APIs de mapas
 
-### Objetivos
+### **Objetivos**
 
-**Objetivo Principal:**
-Desenvolver uma plataforma de compartilhamento e visualização de mapas em tempo real que permita a colaboração entre usuários através de um mapa global interativo e mapas personalizados com diferentes níveis de privacidade.
+#### Objetivo Principal:
+Desenvolver uma plataforma completa de geocaching com elementos de gamificação que permita aos usuários criar, localizar e registrar caches, além de um sistema de conquistas.
 
-**Objetivos Secundários:**
-- Implementar uma arquitetura de microserviços usando .NET Aspire
-- Demonstrar comunicação entre serviços utilizando diferentes protocolos (REST, gRPC, mensageria)
-- Implementar funcionalidades de tempo real usando SignalR
-- Aplicar uma abordagem híbrida de armazenamento de dados com PostgreSQL e MongoDB
-- Criar uma interface responsiva e intuitiva utilizando Angular 18+
-- Explorar padrões de design e arquitetura modernos como CQRS e Event Sourcing
-- Implementar práticas de DevOps com CI/CD através do GitHub Actions
+#### Objetivos Secundários:
+- Implementar as regras oficiais e principais conceitos do geocaching
+- Criar um sistema de gamificação com conquistas, níveis e recompensas
+- Desenvolver uma plataforma responsiva e acessível em diferentes dispositivos
+- Implementar funcionalidades sociais como rankings, eventos e compartilhamento
 
 ## 2. Descrição do Projeto
 
-### Tema do Projeto
+### **Tema do Projeto**
 
-O projeto consiste no desenvolvimento de uma plataforma web que permite aos usuários criar mapas personalizados, compartilhá-los com diferentes níveis de privacidade (público, protegido por link, privado), e colaborar em um mapa global onde cada usuário pode adicionar apenas uma marcação. A plataforma permitirá interações como curtidas em marcações individuais e favoritar mapas públicos para acesso facilitado. 
+O CacheHunt é uma plataforma de geocaching que permitirá aos usuários:
+- Criar e registrar novos geocaches com informações detalhadas (coordenadas, dicas, dificuldade, tipo)
+- Buscar caches próximos com base na localização do usuário
+- Registrar visitas e encontros de caches ("logs")
+- Participar de um sistema de conquistas e progressão de nível
+- Interagir com outros usuários através de funcionalidades sociais
+- Visualizar estatísticas pessoais e rankings gerais
 
-O produto final será uma aplicação web completa, com backend distribuído e frontend responsivo, que demonstrará a aplicação prática de conhecimentos avançados em engenharia de software.
+O sistema será desenvolvido com .NET Aspire no backend e Angular no frontend, proporcionando uma experiência moderna, responsiva e de alta performance.
 
-### Problemas a Resolver
+### **Problemas a Resolver**
 
-1. **Criação e compartilhamento de mapas personalizados**: Desenvolver uma interface intuitiva que permita aos usuários criar mapas personalizados e compartilhá-los com diferentes níveis de privacidade.
-2. **Gerenciamento eficiente de dados geoespaciais**: Desenvolver uma estratégia de armazenamento híbrido que otimize consultas geoespaciais.
-3. **Limitação e controle de marcações no mapa global**: Implementar um sistema que permita apenas uma marcação por usuário no mapa global colaborativo.
-4. **Sistema de privacidade de mapas**: Implementar controles de privacidade que permitam mapas públicos, protegidos por link e privados.
-5. **Interação social através de curtidas e favoritos**: Implementar um sistema que permita usuários curtirem marcações e favoritarem mapas públicos.
-6. **Organização e exibição de mapas favoritos**: Implementar um sistema que organize e priorize a exibição de mapas favoritos.
-7. **Limitação de mapas públicos por usuário**: Implementar um sistema que limite cada usuário a no máximo 3 mapas públicos.
-8. **Notificações em tempo real**: Criar um sistema de notificações que mantenha os usuários informados sobre atividades relevantes.
-9. **Implementação de uma arquitetura escalável**: Projetar uma arquitetura que possa crescer organicamente com o aumento da base de usuários.
-10. **Otimização de performance**: Garantir tempos de resposta aceitáveis mesmo com grande volume de dados geoespaciais.
+1. Falta de elementos de gamificação para manter usuários engajados a longo prazo
+2. Necessidade de uma plataforma que implemente corretamente todas as regras e conceitos do geocaching
+3. Carência de recursos sociais que promovam a formação de comunidades
+4. Limitações de performance e escalabilidade em soluções existentes
+5. Insuficiência de recursos para criadores de cache monitorarem e gerenciarem seus caches
 
-### Limitações
+### **Limitações**
 
-- O projeto não abordará navegação guiada ou cálculo de rotas
-- Não incluirá funcionalidades de análise espacial avançada
-- Não implementará visualização 3D de mapas
-- Não oferecerá funcionalidades de mapas offline
-- Não tratará da criação de camadas de dados geoespaciais complexas
-- Não integrará com sistemas externos de geolocalização em tempo real
-- Não incluirá análise de dados baseada em machine learning
-- Não implementará funcionalidades de realidade aumentada
+Este projeto NÃO abordará:
+- Desenvolvimento de aplicativos nativos para iOS ou Android (focará em web responsivo)
+- Integração direta com plataformas de geocaching existentes para importação/exportação de dados
+- Implementação de recursos de realidade aumentada
+- Desenvolvimento de hardware específico para geocaching
+- Implementação de um sistema de pagamento ou monetização
 
 ## 3. Especificação Técnica
 
 ### 3.1. Requisitos de Software
 
-#### Lista de Requisitos
+#### **Lista de Requisitos**
 
-**Requisitos Funcionais (RF):**
+##### Requisitos Funcionais (RF):
 
-1. RF01: O sistema deve permitir que usuários se cadastrem e façam login
-2. RF02: O sistema deve permitir que usuários criem mapas personalizados
-3. RF03: O sistema deve permitir que usuários adicionem múltiplos marcadores em seus mapas personalizados
-4. RF04: O sistema deve permitir que usuários definam o nível de privacidade de seus mapas (público, protegido por link, privado)
-5. RF05: O sistema deve limitar cada usuário a ter até 3 mapas públicos simultaneamente
-6. RF06: O sistema deve disponibilizar um mapa global onde cada usuário pode adicionar apenas uma marcação
-7. RF07: O sistema deve permitir que usuários curtam marcações no mapa global
-8. RF08: O sistema deve permitir que usuários curtam mapas públicos de outros usuários
-9. RF09: O sistema deve permitir que usuários favoritem mapas públicos de outros usuários
-10. RF10: O sistema deve exibir mapas favoritados com prioridade na listagem de mapas públicos
-11. RF11: O sistema deve exibir atualizações em tempo real quando novos pontos são adicionados
-12. RF12: O sistema deve permitir o compartilhamento de mapas através de links, respeitando as configurações de privacidade
-13. RF13: O sistema deve ter três telas principais: mapa global, mapas pessoais e mapas públicos
-14. RF14: O sistema deve permitir que usuários editem seus mapas personalizados após a criação
+1. **RF01**: O sistema deve permitir o cadastro de usuários com perfil, preferências e estatísticas
+2. **RF02**: O sistema deve permitir a autenticação segura de usuários
+3. **RF03**: O sistema deve permitir a criação e edição de caches por usuários autorizados
+4. **RF04**: O sistema deve validar as coordenadas geográficas dos caches cadastrados
+5. **RF05**: O sistema deve exibir caches próximos à localização atual do usuário
+6. **RF06**: O sistema deve permitir filtrar caches por tipo, dificuldade, tamanho e distância
+7. **RF07**: O sistema deve permitir ao usuário registrar o encontro de um cache (log)
+8. **RF08**: O sistema deve permitir o upload de fotos nos logs de visita
+9. **RF09**: O sistema deve calcular e atribuir conquistas automaticamente
+10. **RF10**: O sistema deve disponibilizar um painel de estatísticas para o usuário
+11. **RF11**: O sistema deve implementar um sistema de ranking e comparação entre usuários
+12. **RF13**: O sistema deve permitir a criação e participação em eventos comunitários
+13. **RF14**: O sistema deve fornecer mecanismos de denúncia de problemas com caches
+14. **RF15**: O sistema deve permitir a troca de mensagens entre usuários
 
-**Requisitos Não-Funcionais (RNF):**
+##### Requisitos Não-Funcionais (RNF):
 
-1. RNF01: O sistema deve ser desenvolvido como uma arquitetura de microserviços usando .NET Aspire
-2. RNF02: O frontend deve ser implementado utilizando Angular 18+
-3. RNF03: O sistema deve utilizar PostgreSQL para dados relacionais e MongoDB para dados geoespaciais
-4. RNF04: O sistema deve utilizar Redis para cache e funcionalidades de tempo real
-5. RNF05: O sistema deve implementar comunicação assíncrona entre serviços utilizando RabbitMQ
-6. RNF06: O sistema deve implementar comunicação em tempo real com o frontend utilizando SignalR
-7. RNF07: O sistema deve ser responsivo e funcionar em dispositivos móveis e desktop
-8. RNF08: O sistema deve ser escalável horizontalmente
-9. RNF09: O sistema deve ter um tempo de resposta inferior a 2 segundos para operações comuns
-10. RNF10: O sistema deve suportar um mínimo de 1000 usuários simultâneos
-11. RNF11: O sistema deve implementar práticas de observabilidade com logs centralizados e métricas
-12. RNF12: O sistema deve implementar testes automatizados com cobertura mínima de 80%
-13. RNF13: O sistema deve utilizar Docker para containerização dos serviços
-14. RNF14: O sistema deve utilizar GitHub Actions para CI/CD
+1. **RNF01**: O sistema deve ser responsivo, adaptando-se a diferentes tamanhos de tela
+2. **RNF02**: O sistema deve ter tempo de resposta menor que 3segundos para operações comuns
+3. **RNF03**: O sistema deve suportar pelo menos 1000 usuários simultâneos
+4. **RNF04**: O sistema deve garantir a privacidade dos dados dos usuários conforme LGPD - avaliar
+5. **RNF05**: O sistema deve estar disponível em português e inglês - avaliar
+6. **RNF06**: O sistema deve implementar medidas de segurança contra ataques comuns (XSS, CSRF, SQL Injection)
+7. **RNF07**: O sistema deve ser acessível conforme diretrizes WCAG 2.1 nível AA - avaliar
+8. **RNF08**: O sistema deve funcionar nos principais navegadores modernos
+9. **RNF09**: O sistema deve implementar cache eficiente para reduzir consumo de dados
+10. **RNF10**: O sistema deve permitir operações básicas em modo offline com sincronização posterior - avaliar
 
-#### Representação dos Requisitos
+#### **Representação dos Requisitos**
 
-``` mermaid
-stateDiagram-v2
-    state "Usuário Não Registrado" as NR
-    state "Usuário Registrado" as UR
-    
-    state "Sistema MapShare" as Sistema {
-        state "Gerenciamento de Usuários" as GU {
-            [*] --> Cadastro
-            Cadastro --> Login
-            Login --> [*]
-        }
-        
-        state "Mapas Personalizados" as MP {
-            [*] --> Criar
-            Criar --> Editar
-            Criar --> Definir_Privacidade
-            Definir_Privacidade --> Público
-            Definir_Privacidade --> Protegido_por_Link
-            Definir_Privacidade --> Privado
-            Editar --> Adicionar_Marcador
-            Editar --> [*]
-        }
-        
-        state "Mapa Global" as MG {
-            [*] --> Visualizar
-            Visualizar --> Adicionar_Marcacao
-            Visualizar --> Curtir_Marcacao
-            Adicionar_Marcacao --> [*]
-            Curtir_Marcacao --> [*]
-        }
-        
-        state "Mapas Públicos" as MPB {
-            [*] --> Listar
-            Listar --> Visualizar_Mapa
-            Visualizar_Mapa --> Curtir_Mapa
-            Visualizar_Mapa --> Favoritar_Mapa
-            Curtir_Mapa --> [*]
-            Favoritar_Mapa --> [*]
-        }
-        
-        state "Compartilhamento" as SC {
-            [*] --> Gerar_Link
-            Gerar_Link --> Compartilhar
-            Compartilhar --> [*]
-        }
-    }
-    
-    NR --> GU: Acessar
-    NR --> MPB: Visualizar mapas públicos
-    UR --> MP: Gerenciar mapas
-    UR --> MG: Interagir
-    UR --> MPB: Interagir
-    UR --> SC: Compartilhar mapas
+**Diagrama de Casos de Uso (UML)**
+
 ```
-
-
-O diagrama acima representa os principais casos de uso do sistema, incluindo a interação dos usuários com mapas personalizados e o mapa global colaborativo. Os atores principais são os usuários registrados e não registrados, com diferentes níveis de permissão e acesso às funcionalidades do sistema.
+[Este é um espaço reservado para o Diagrama de Casos de Uso UML, que deverá ser desenvolvido e incluído posteriormente. O diagrama deverá representar visualmente os principais casos de uso do sistema, incluindo atores como "Usuário não autenticado", "Usuário autenticado", "Criador de cache" e "Administrador", e suas interações com funcionalidades como "Cadastrar-se", "Buscar caches", "Registrar encontro", "Criar cache", etc.]
+```
 
 ### 3.2. Considerações de Design
 
-#### Visão Inicial da Arquitetura
+#### **Visão Inicial da Arquitetura**
 
-A arquitetura do sistema será baseada em microserviços, com cada serviço responsável por uma funcionalidade específica. Os serviços se comunicarão através de um barramento de mensagens (RabbitMQ) para operações assíncronas e APIs RESTful para operações síncronas. Um API Gateway gerenciará as requisições do frontend e encaminhará para os serviços apropriados.
+O CacheHunt será desenvolvido utilizando uma arquitetura de microsserviços orquestrada pelo .NET Aspire, com frontend em Angular. Os principais componentes da arquitetura são:
 
-Os principais componentes da arquitetura são:
+1. **Frontend (Angular)**
+   - Interface de usuário responsiva e acessível
+   - Comunicação com backend via REST API
+   - Gerenciamento de estado com NGRX
+   - Componentes reutilizáveis com Material Design
 
-1. **API Gateway**: Gerencia a comunicação entre o frontend e os microserviços, implementando roteamento, autenticação, rate limiting e cache.
+2. **Backend (.NET Aspire)**
+   - API Gateway para gerenciamento de requisições
+   - Microsserviço de Autenticação e Autorização
+   - Microsserviço de Geocaches (criação, busca, gerenciamento)
+   - Microsserviço de Usuários e Perfis
+   - Microsserviço de Gamificação (conquistas, níveis, desafios - avaliar)
+   - Microsserviço de Eventos e Notificações
+   - Microsserviço de Analytics e Estatísticas - avaliar
 
-2. **Serviço de Autenticação:** Gerencia usuários, autenticação e autorização usando JWT e OAuth 2.0.
+3. **Persistência de Dados**
+   - Banco de dados relacional para dados estruturados (SQL Server)
+   - Banco de dados geoespacial para informações de localização (integração com PostGIS)
+   - Cache distribuído para melhorar performance (Redis)
+   - Armazenamento de objetos para mídias e arquivos (Blob Storage)
 
-3. **Serviço de Mapa Global:** Gerencia o mapa colaborativo compartilhado, incluindo visualização, interação e a regra de uma marcação por usuário.
+4. **Serviços de Infraestrutura**
+   - Sistema de mensageria para comunicação assíncrona entre serviços (RabbitMQ)
+   - Serviço de logs centralizados (Serilog, Elastic Stack)
+   - Monitoramento e métricas (Prometheus, Grafana)
+   - CDN para distribuição de conteúdo estático
 
-4. **Serviço de Notificações:** Gerencia o envio de notificações em tempo real, rastreamento de eventos e preferências dos usuários.
+#### **Padrões de Arquitetura**
 
-5. **SignalR Hub:** Gerencia comunicação bidirecional em tempo real com o frontend, incluindo propagação de atualizações instantâneas e conexões persistentes.
+- **Microsserviços**: Para permitir desenvolvimento, implantação e escalabilidade independentes
+- **Clean Architecture**: Separação clara de responsabilidades entre camadas
+- **CQRS (Command Query Responsibility Segregation)**: Separação entre operações de leitura e escrita
+- **Event-Driven Architecture**: Comunicação assíncrona entre serviços via eventos
+- **Repository Pattern**: Abstração do acesso a dados
+- **MVC (Model-View-Controller)**: Para organização do frontend
+- **DDD (Domain-Driven Design)**: Para modelagem de domínios complexos
 
-#### Padrões de Arquitetura
+#### **Modelos C4**
 
-- **Arquitetura de Microserviços**: Cada componente do sistema será implementado como um serviço independente, promovendo autonomia, escalabilidade e isolamento.
-- **API Gateway**: Padrão para centralizar a comunicação com o frontend, simplificando a experiência do cliente.
-- **Event-Driven Architecture**: Comunicação entre serviços baseada em eventos, promovendo baixo acoplamento.
-- **Publish-Subscribe**: Para notificações e atualizações em tempo real, permitindo comunicação assíncrona.
-- **CQRS (Command Query Responsibility Segregation)**: Para separação de operações de leitura e escrita, otimizando cada fluxo independentemente.
-- **Repository Pattern**: Para abstração do acesso aos dados, isolando a lógica de domínio da infraestrutura.
-- **Domain-Driven Design**: Para modelagem de domínios complexos, especialmente no contexto de mapas e interações.
-- **Circuit Breaker**: Para aumentar a resiliência na comunicação entre serviços.
-- **Retry Pattern**: Para lidar com falhas transitórias nas comunicações.
-- **Bulkhead Pattern**: Para isolar falhas e evitar efeitos cascata.
+##### Nível 1: Diagrama de Contexto
 
-#### Modelos C4
+```
+[Espaço reservado para diagrama C4 de Contexto que mostrará o CacheHunt como um sistema central, interagindo com usuários, APIs externas de mapas, serviços de armazenamento e notificações]
+```
 
-**Nível 1: Contexto**
-O sistema MapShare interage com usuários através de uma interface web e móvel, permitindo a criação, compartilhamento e interação com mapas e pontos de interesse. O sistema se integra com provedores de mapas para fornecer dados cartográficos base.
+##### Nível 2: Diagrama de Contêineres
 
-**Nível 2: Contêineres**
-- Frontend Angular: Interface de usuário responsiva que interage com o backend através do API Gateway
-- API Gateway: Ponto único de entrada para requisições do frontend, gerenciando roteamento e autenticação
-- Microserviços .NET Aspire: Conjunto de serviços especializados que implementam a lógica de negócio
-- Banco de dados PostgreSQL: Armazenamento de dados relacionais (usuários, interações, permissões)
-- Banco de dados MongoDB: Armazenamento de dados geoespaciais (mapas, marcadores)
-- Cache Redis: Cache distribuído para otimização de performance e suporte a sessões
-- Barramento de mensagens RabbitMQ: Comunicação assíncrona entre serviços
-- Hub SignalR: Suporte a comunicação em tempo real com o frontend
+```
+[Espaço reservado para diagrama C4 de Contêineres que detalhará os principais contêineres da aplicação: Frontend SPA, Backend API, Bancos de Dados, Serviços de Mensageria, etc.]
+```
 
-**Nível 3: Componentes**
-Cada microserviço será composto pelos seguintes componentes:
-- Controllers API: Endpoints REST para comunicação externa
-- Services: Implementação da lógica de negócio
-- Repositories: Abstração do acesso a dados
-- Domain Models: Representação das entidades de domínio
-- Event Handlers: Processamento de eventos do barramento de mensagens
-- Validators: Validação de entrada de dados
-- Mappers: Conversão entre DTOs e modelos de domínio
+##### Nível 3: Diagrama de Componentes
 
-**Nível 4: Código**
-Detalhamento das classes e interfaces para cada componente será desenvolvido durante a implementação, seguindo princípios SOLID e Clean Code. Serão definidas estruturas específicas para:
-- Definição de comandos e consultas (CQRS)
-- Implementação de handlers
-- Definição de eventos de domínio
-- Implementação de políticas de resiliência
+```
+[Espaço reservado para diagrama C4 de Componentes que detalhará os componentes dentro de cada contêiner, como controladores, serviços, repositórios, etc.]
+```
+
+##### Nível 4: Diagrama de Código
+
+```
+[Espaço reservado para diagrama C4 de Código que mostrará exemplos de classes e interfaces para componentes críticos do sistema]
+```
 
 ### 3.3. Stack Tecnológica
 
-#### Linguagens de Programação
+#### **Linguagens de Programação**
 
-- **C# 10**: Linguagem principal para desenvolvimento do backend, escolhida pela sua robustez, performance e integração com o ecossistema .NET. A versão 10 traz recursos avançados como expressões lambda aprimoradas, tipos de registro estruturados e melhorias em tipos nulos.
-- **TypeScript 5.2+**: Para desenvolvimento do frontend, oferecendo tipagem estática e melhor suporte a IDEs, aumentando a produtividade e reduzindo erros em tempo de execução.
+- **C#**: Escolhida para o backend devido à robustez, performance e integração nativa com .NET Aspire
+- **TypeScript**: Selecionada para o frontend por proporcionar tipagem estática ao JavaScript, facilitando a manutenção e reduzindo erros
+- **SQL**: Para consultas e manipulação de dados em bancos relacionais
+- **HTML/CSS**: Para estruturação e estilização da interface do usuário
 
-#### Frameworks e Bibliotecas
+#### **Frameworks e Bibliotecas**
 
-- **Backend**:
-  - **.NET 8+**: Framework principal para desenvolvimento do backend, oferecendo alto desempenho e recursos modernos.
-  - **.NET Aspire**: Para orquestração de microserviços, proporcionando uma experiência de desenvolvimento integrada.
-  - **Entity Framework Core 10**: ORM para acesso ao PostgreSQL, com suporte a migrações e modelagem avançada.
-  - **MongoDB Driver**: Para acesso ao MongoDB, otimizado para consultas geoespaciais.
-  - **StackExchange.Redis**: Cliente Redis para .NET, permitindo operações de cache distribuído.
-  - **MassTransit 8**: Abstração para RabbitMQ facilitando a implementação de padrões de mensageria (status: em análise).
-  - **ASP.NET Core SignalR**: Para comunicação em tempo real bidirecional.
-  - **IdentityServer4**: Para autenticação e autorização com suporte a OAuth 2.0 e OpenID Connect (status: em análise).
-  - **FluentValidation**: Para validação de modelos e entrada de dados.
-  - **AutoMapper**: Para mapeamento entre DTOs e modelos de domínio.
-  - **Polly**: Para implementação de políticas de resiliência.
-  - **Serilog**: Para logging estruturado e centralizado.
-  - **MediatR**: Para implementação do padrão Mediator e CQRS.
-  - **Scalar**: Para documentação de API com Scalar/OpenAPI.
+**Backend**
+- **.NET Aspire**: Framework para desenvolvimento de aplicações distribuídas e em nuvem
+- **ASP.NET Core**: Framework web para construção de APIs
+- **Entity Framework Core**: ORM para acesso a dados
+- **AutoMapper**: Mapeamento objeto-objeto - substituir por outro
+- **MediatR**: Implementação de padrões mediator para CQRS
+- **FluentValidation**: Validação de entrada de dados
+- **Serilog**: Logging estruturado
+- **Hangfire**: Agendamento e processamento de tarefas em background
+- **NetTopologySuite**: Biblioteca para operações geoespaciais
+- **IdentityServer**: Autenticação e autorização
 
-- **Frontend**:
-  - **Angular 18+**: Framework principal para desenvolvimento do frontend, escolhido por sua arquitetura robusta e escalável.
-  - **Leaflet.js**: Biblioteca de mapas interativos, com amplo suporte a personalização.
-  - **NgRx**: Implementação do padrão Redux para gerenciamento de estado no frontend.
-  - **Angular Material**: Componentes UI com design material.
-  - **RxJS**: Para programação reativa no frontend.
-  - **Chart.js**: Para visualização de dados e métricas.
-  - **Microsoft SignalR Client**: Para comunicação em tempo real com o backend.
+**Frontend**
+- **Angular**: Framework para desenvolvimento de aplicações web SPA
+- **Angular Material**: Componentes de UI
+- **NgRx**: Gerenciamento de estado baseado em Redux
+- **RxJS**: Programação reativa
+- **Leaflet/OpenLayers**: Bibliotecas de mapas para web
+- **Chart.js**: Visualização de dados
+- **TailwindCSS**: Framework CSS utilitário
+- **Angular PWA**: Recursos de Progressive Web App
 
-#### Ferramentas de Desenvolvimento e Gestão de Projeto
+#### **Ferramentas de Desenvolvimento e Gestão de Projeto**
 
-- **JetBrains Rider**: IDE principal para desenvolvimento backend, com suporte avançado a C# e .NET.
-- **Visual Studio Code**: IDE para desenvolvimento frontend, com extensões para TypeScript e Angular.
-- **Docker**: Containerização de serviços, garantindo consistência entre ambientes.
-- **Docker Compose**: Orquestração local de contêineres para desenvolvimento.
-- **GitHub**: Versionamento de código com estratégia de branching GitFlow.
-- **GitHub Actions**: CI/CD automatizado para build, teste e deploy.
-- **GitHub Projects**: Gestão ágil do projeto com quadros Kanban.
-- **Bruno**: Testes de API e documentação interativa.
-- **DBeaver**: Gerenciamento de bancos de dados relacionais.
-- **MongoDB Compass**: Gerenciamento visual do MongoDB.
-- **Jest**: Framework de testes para frontend.
-- **xUnit**: Framework de testes para backend.
-- **Grafana**: Visualização de métricas e monitoramento.
-- **Prometheus**: Coleta de métricas em tempo real.
+- **Rider**: IDE para desenvolvimento backend
+- **Visual Studio Code**: Editor para desenvolvimento frontend e backend
+- **Azure DevOps/GitHub**: Repositório de código e CI/CD
+- **Docker/Kubernetes**: Containerização e orquestração
+- **Postman/Swagger**: Teste e documentação de API
+- **SonarQube**: Análise estática de código -- utilizar outro
+- **Mermaid**: // preencher
 
 ### 3.4. Considerações de Segurança
 
-- **Autenticação e Autorização**: Implementação de JWT e OAuth 2.0 para autenticação segura, com suporte a múltiplos fatores.
-- **HTTPS**: Toda comunicação com o servidor será criptografada com TLS 1.3, incluindo comunicação entre serviços.
-- **Validação de Entrada**: Todas as entradas do usuário serão validadas para prevenir ataques como SQL Injection e XSS, utilizando técnicas de sanitização e validação.
-- **Rate Limiting**: Implementação de limites de requisições para prevenir ataques de DDoS e abuso de API.
-- **Auditoria**: Registro de todas as alterações sensíveis no sistema, com trilhas de auditoria imutáveis.
-- **Segurança de Dados**: Implementação de medidas para proteger dados sensíveis dos usuários, incluindo pseudonimização quando necessário.
-- **Controle de Acesso**: Implementação de políticas de acesso baseadas em papéis (RBAC) e recursos (ABAC).
-- **Secrets Management**: Utilização de gestão segura de segredos com Azure Key Vault ou equivalente.
-- **Segurança em DevOps**: Implementação de práticas de DevSecOps, incluindo análise de dependências e vulnerabilidades.
-- **Conformidade com LGPD**: Garantia de que o sistema esteja em conformidade com a Lei Geral de Proteção de Dados.
-- **Proteção contra ataques comuns**: Implementação de proteções contra CSRF, clickjacking e outros vetores de ataque conhecidos.
+O CacheHunt implementará diversas medidas de segurança para proteger os dados dos usuários e a integridade do sistema:
+
+1. **Autenticação e Autorização**
+   - Implementação de OAuth 2.0/OpenID Connect para autenticação segura
+   - JWT (JSON Web Tokens) para gerenciamento de sessão
+   - Autorização baseada em roles e claims
+   - Mecanismo de refresh token com rotação segura
+
+2. **Proteção de Dados**
+   - Criptografia de dados sensíveis em repouso
+   - TLS/SSL para todas as comunicações
+   - Implementação das diretrizes da LGPD para proteção de dados pessoais
+   - Anonimização de dados quando apropriado
+
+3. **Segurança da Aplicação**
+   - Proteção contra ataques comuns (XSS, CSRF, SQL Injection)
+   - Implementação de rate limiting para prevenir abusos
+   - Validação rigorosa de entradas em todas as camadas
+   - Sanitização de dados de saída
+
+5. **Privacidade dos Usuários**
+   - Coordenadas exatas de caches visíveis apenas para usuários autenticados
+   - Opção de ocultar estatísticas e atividades do perfil público
+   - Controle de visibilidade de logs e fotos
+   - Mecanismos para usuários exercerem direitos de acesso, retificação e exclusão de dados
 
 ## 4. Próximos Passos
 
-Após a aprovação deste RFC, os próximos passos para o desenvolvimento do projeto são:
+Após a aprovação deste RFC, o desenvolvimento do CacheHunt seguirá o seguinte cronograma aproximado:
 
-**Portfólio I (Curto Prazo - próximos 3 meses):**
-1. Refinamento dos requisitos baseado no feedback dos professores
-2. Definição detalhada da arquitetura e diagrama de componentes
-3. Criação do projeto base com estrutura de microserviços
-4. Configurar infrastrutura da aplicação e pipeline CI/CD
-5. Implementação do serviço de autenticação
-6. Desenvolvimento do MVP para funcionalidades básicas de mapa
-7. Implementação da comunicação entre serviços
+### Portfólio
 
-**Portfólio II (Médio Prazo - 3 a 6 meses):**
-1. Implementação completa de todos os microserviços
-2. Desenvolvimento da interface de usuário completa
-3. Integração de funcionalidades de tempo real
-4. Implementação de testes automatizados
-5. Configuração da pipeline de CI/CD
-6. Otimização de performance e escalabilidade
-7. Documentação completa do sistema
-8. Apresentação final do projeto
+6 meses de de desenvolvimento divididos em 3 partes, primeira vai ser definida pelo reginamento dos requisitos, arquitetura detalhada configuração da infra na vps e CI/CD, inicialização do projeto backend com aspire, servico de authenticaão, 2 parte finalização dos outros serviços back end, 3 parte front end e junção do back com front. // ajustar isso acima para e formatar como foi feito abaixo anteriormete
+
+<!-- 1. **Mês 1-2**:
+   - Refinamento de requisitos e casos de uso
+   - Design detalhado da arquitetura
+   - Prototipação da interface do usuário
+   - Configuração do ambiente de desenvolvimento
+
+2. **Mês 3-4**:
+   - Implementação do core backend (autenticação, geocaches básicos)
+   - Desenvolvimento da estrutura base do frontend
+   - Integração com serviços de mapas
+   - Testes unitários e integração contínua
+
+3. **Mês 5-6**:
+   - Implementação de funcionalidades básicas de usuário
+   - Sistema básico de logs e registros
+   - Apresentação de Portfólio I com MVP funcional
+
+### Portfólio II (2º Semestre)
+
+4. **Mês 7-8**:
+   - Implementação do sistema de gamificação (conquistas, níveis)
+   - Desenvolvimento de recursos sociais
+   - Otimização de performance e UX
+
+5. **Mês 9-10**:
+   - Implementação de funcionalidades avançadas (eventos, desafios)
+   - Testes de usabilidade e correções
+   - Documentação técnica completa
+
+6. **Mês 11-12**:
+   - Refinamentos finais e otimizações
+   - Testes de segurança e performance
+   - Preparação para apresentação final
+   - Entrega e defesa do TCC -->
 
 ## 5. Referências
 
-- **Documentações Oficiais**:
-  - [.NET Documentation](https://docs.microsoft.com/en-us/dotnet/)
-  - [.NET Aspire Documentation](https://docs.microsoft.com/en-us/dotnet/aspire/)
-  - [Angular Documentation](https://angular.io/docs)
-  - [MongoDB Documentation](https://docs.mongodb.com/)
-  - [PostgreSQL Documentation](https://www.postgresql.org/docs/)
-  - [RabbitMQ Documentation](https://www.rabbitmq.com/documentation.html)
-  - [Leaflet.js Documentation](https://leafletjs.com/reference.html)
+[Lista de referências a ser completada pelo estudante, incluindo:]
 
-- **Frameworks e Ferramentas**:
-  - [Entity Framework Core](https://github.com/dotnet/efcore)
-  - [IdentityServer4](https://github.com/IdentityServer/IdentityServer4)
-  - [SignalR](https://github.com/dotnet/aspnetcore/tree/main/src/SignalR)
-  - [MassTransit](https://masstransit-project.com/)
-  - [Polly](https://github.com/App-vNext/Polly)
-  - [Serilog](https://serilog.net/)
-  - [AutoMapper](https://automapper.org/)
-  - [FluentValidation](https://fluentvalidation.net/)
-  - [MediatR](https://github.com/jbogard/MediatR)
-  - [ErrorOr](https://github.com/amantinband/error-or)
+<!-- colocar texto com os link para referencias -->
 
-## 6. Apêndices
+- Documentação oficial do .NET Aspire
+- Documentação oficial do Angular
+- Literatura sobre geocaching e suas regras
+- Artigos científicos sobre gamificação
+- Referências sobre arquitetura de software e microserviços
+- Padrões de design e boas práticas de desenvolvimento
+- Artigos e recursos sobre segurança web
+- Documentação de APIs de mapas e serviços geoespaciais
+- Estudos sobre usabilidade e experiência do usuário
+- Recursos sobre DevOps e CI/CD
 
-### Apêndice A: Glossário de Termos
+## 6. Apêndices (Opcionais)
 
-- **Microserviços**: Arquitetura de software onde a aplicação é composta por pequenos serviços independentes.
-- **API Gateway**: Componente que atua como ponto único de entrada para os clientes, encaminhando requisições para os serviços apropriados.
-- **Event-Driven Architecture**: Padrão de arquitetura em que os componentes se comunicam através de eventos.
-- **CQRS**: Command Query Responsibility Segregation, padrão que separa operações de leitura e escrita.
-- **JWT**: JSON Web Token, método para representar claims entre duas partes.
-- **OAuth 2.0**: Protocolo de autorização para acesso delegado.
-- **SignalR**: Biblioteca para comunicação em tempo real entre cliente e servidor.
-- **Mapa Global**: Espaço compartilhado onde cada usuário pode adicionar apenas uma marcação.
-- **Mapas Pessoais**: Mapas criados e gerenciados pelo próprio usuário.
-- **Mapas Públicos**: Mapas compartilhados que podem ser visualizados por qualquer usuário autenticado.
-- **Marcador/Marcação**: Ponto de interesse adicionado a um mapa.
-- **Favoritar**: Ação de marcar um mapa público para acesso facilitado.
-
-### Apêndice B: Estimativas Iniciais de Esforço
-
-| Componente | Estimativa (horas) |
-|------------|-------------------|
-| Configuração da Infraestrutura | 24 |
-| Serviço de Autenticação | 12 |
-| Serviço de Mapas Pessoais | 16 |
-| Serviço de Mapa Global | 16 |
-| Serviço de Marcadores | 8 |
-| Serviço de Interações | 8 |
-| Serviço de Compartilhamento | 24 |
-| Serviço de Notificações | 32 |
-| Frontend Angular | 96 |
-| Testes e QA | 80 |
-| DevOps e CI/CD | 8 |
-| **Total** | **299** |
+[Espaço reservado para conteúdo adicional como mockups iniciais da interface, exemplos de diagramas de fluxo, detalhes específicos sobre regras de geocaching a serem implementadas, etc.]
 
 ## 7. Avaliações de Professores
 
 ### Considerações Professor/a:
-(Espaço reservado para avaliação)
 
-Assinatura: _____________________________ Data: ______________
-
-### Considerações Professor/a:
-(Espaço reservado para avaliação)
-
-Assinatura: _____________________________ Data: ______________
+[Espaço reservado para considerações e assinatura]
 
 ### Considerações Professor/a:
-(Espaço reservado para avaliação)
 
-Assinatura: _____________________________ Data: ______________
+[Espaço reservado para considerações e assinatura]
+
+### Considerações Professor/a:
+
+[Espaço reservado para considerações e assinatura]
