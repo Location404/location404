@@ -91,7 +91,6 @@ Este projeto NÃO abordará:
 1. **RNF01**: O sistema deve ser responsivo, adaptando-se a diferentes tamanhos de tela
 2. **RNF02**: O sistema deve ter tempo de resposta menor que 3 segundos para operações comuns
 3. **RNF03**: O sistema deve suportar pelo menos 1000 usuários simultâneos
-4. **RNF04**: O sistema deve garantir a privacidade dos dados dos usuários conforme LGPD
 5. **RNF05**: O sistema deve implementar medidas de segurança contra ataques comuns (XSS, CSRF, SQL Injection)
 6. **RNF06**: O sistema deve funcionar nos principais navegadores modernos
 7. **RNF07**: O sistema deve implementar cache eficiente para reduzir consumo de dados
@@ -207,7 +206,6 @@ O CacheHunt implementará medidas de segurança abrangentes:
    - Criptografia de dados sensíveis
    - HTTPS/TLS em todas as comunicações
    - Anonimização de dados quando apropriado
-   - Conformidade com LGPD
 
 3. **Segurança da Aplicação**
    - Proteção contra OWASP Top 10
@@ -284,7 +282,6 @@ O sucesso do projeto será avaliado pelas seguintes métricas:
 - Evans, Eric. (2003). Domain-Driven Design: Tackling Complexity in the Heart of Software. Addison-Wesley.
 - Newman, Sam. (2021). Building Microservices: Designing Fine-Grained Systems. O'Reilly Media.
 - OWASP Top Ten: [https://owasp.org/www-project-top-ten/](https://owasp.org/www-project-top-ten/)
-- Lei Geral de Proteção de Dados (LGPD): [https://www.gov.br/cidadania/pt-br/acesso-a-informacao/lgpd](https://www.gov.br/cidadania/pt-br/acesso-a-informacao/lgpd)
 
 ## 7. Apêndices
 
