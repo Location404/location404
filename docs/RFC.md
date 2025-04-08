@@ -20,7 +20,7 @@ Geocaching é uma atividade recreativa outdoor que combina elementos de caça ao
 O desenvolvimento do CacheHunt é relevante para o campo da Engenharia de Software por diversos motivos:
 
 1. Integra tecnologias modernas (.NET Aspire e Angular) para resolver problemas reais de geolocalização e interação social
-2. Implementa conceitos avançados de desenvolvimento de software
+2. Implementa conceitos avançados de desenvolvimento de software como arquitetura de microsserviços e DDD
 3. Aplica princípios de gamificação para aumentar engajamento do usuário
 4. Explora desafios técnicos como persistência de dados geoespaciais, autenticação segura e integração com APIs de mapas
 
@@ -29,7 +29,7 @@ O desenvolvimento do CacheHunt é relevante para o campo da Engenharia de Softwa
 #### Objetivo Principal:
 Desenvolver uma plataforma completa de geocaching com elementos de gamificação que permita aos usuários criar, localizar e registrar caches, além de um sistema de conquistas.
 
-#### Objetivos Secundários:
+#### Objetivos Específicos:
 - Implementar as regras oficiais e principais conceitos do geocaching
 - Criar um sistema de gamificação com conquistas, níveis e recompensas
 - Desenvolver uma plataforma responsiva e acessível em diferentes dispositivos
@@ -54,7 +54,6 @@ O sistema será desenvolvido com .NET Aspire no backend e Angular no frontend, p
 1. Falta de elementos de gamificação para manter usuários engajados a longo prazo
 2. Necessidade de uma plataforma que implemente corretamente todas as regras e conceitos do geocaching
 3. Carência de recursos sociais que promovam a formação de comunidades
-4. Limitações de performance e escalabilidade em soluções existentes
 5. Insuficiência de recursos para criadores de cache monitorarem e gerenciarem seus caches
 
 ### **Limitações**
@@ -70,9 +69,7 @@ Este projeto NÃO abordará:
 
 ### 3.1. Requisitos de Software
 
-#### **Lista de Requisitos**
-
-##### Requisitos Funcionais (RF):
+#### **Requisitos Funcionais (RF)**
 
 1. **RF01**: O sistema deve permitir o cadastro de usuários com perfil, preferências e estatísticas
 2. **RF02**: O sistema deve permitir a autenticação segura de usuários
@@ -85,245 +82,224 @@ Este projeto NÃO abordará:
 9. **RF09**: O sistema deve calcular e atribuir conquistas automaticamente
 10. **RF10**: O sistema deve disponibilizar um painel de estatísticas para o usuário
 11. **RF11**: O sistema deve implementar um sistema de ranking e comparação entre usuários
-12. **RF13**: O sistema deve permitir a criação e participação em eventos comunitários
-13. **RF14**: O sistema deve fornecer mecanismos de denúncia de problemas com caches
-14. **RF15**: O sistema deve permitir a troca de mensagens entre usuários
+12. **RF12**: O sistema deve permitir a criação e participação em eventos comunitários
+13. **RF13**: O sistema deve fornecer mecanismos de denúncia de problemas com caches
+14. **RF14**: O sistema deve permitir a troca de mensagens entre usuários
 
-##### Requisitos Não-Funcionais (RNF):
+#### **Requisitos Não-Funcionais (RNF)**
 
 1. **RNF01**: O sistema deve ser responsivo, adaptando-se a diferentes tamanhos de tela
-2. **RNF02**: O sistema deve ter tempo de resposta menor que 3segundos para operações comuns
+2. **RNF02**: O sistema deve ter tempo de resposta menor que 3 segundos para operações comuns
 3. **RNF03**: O sistema deve suportar pelo menos 1000 usuários simultâneos
-4. **RNF04**: O sistema deve garantir a privacidade dos dados dos usuários conforme LGPD - avaliar
-5. **RNF05**: O sistema deve estar disponível em português e inglês - avaliar
-6. **RNF06**: O sistema deve implementar medidas de segurança contra ataques comuns (XSS, CSRF, SQL Injection)
-7. **RNF07**: O sistema deve ser acessível conforme diretrizes WCAG 2.1 nível AA - avaliar
-8. **RNF08**: O sistema deve funcionar nos principais navegadores modernos
-9. **RNF09**: O sistema deve implementar cache eficiente para reduzir consumo de dados
-10. **RNF10**: O sistema deve permitir operações básicas em modo offline com sincronização posterior - avaliar
+4. **RNF04**: O sistema deve garantir a privacidade dos dados dos usuários conforme LGPD
+5. **RNF05**: O sistema deve implementar medidas de segurança contra ataques comuns (XSS, CSRF, SQL Injection)
+6. **RNF06**: O sistema deve funcionar nos principais navegadores modernos
+7. **RNF07**: O sistema deve implementar cache eficiente para reduzir consumo de dados
+8. **RNF08**: O sistema deve ser escalável horizontalmente para suportar crescimento de usuários
 
 #### **Representação dos Requisitos**
 
 **Diagrama de Casos de Uso (UML)**
 
-```
-[Este é um espaço reservado para o Diagrama de Casos de Uso UML, que deverá ser desenvolvido e incluído posteriormente. O diagrama deverá representar visualmente os principais casos de uso do sistema, incluindo atores como "Usuário não autenticado", "Usuário autenticado", "Criador de cache" e "Administrador", e suas interações com funcionalidades como "Cadastrar-se", "Buscar caches", "Registrar encontro", "Criar cache", etc.]
-```
+Será desenvolvido um diagrama de casos de uso completo representando as interações entre os diferentes tipos de usuários e as funcionalidades do sistema, incluindo:
 
-### 3.2. Considerações de Design
+- Atores: Usuário não autenticado, Usuário autenticado, Criador de cache, Administrador
+- Principais casos de uso: Cadastrar-se, Buscar caches, Registrar encontro, Criar cache, etc.
 
-#### **Visão Inicial da Arquitetura**
+### 3.2. Arquitetura do Sistema
 
-O CacheHunt será desenvolvido utilizando uma arquitetura de microsserviços orquestrada pelo .NET Aspire, com frontend em Angular. Os principais componentes da arquitetura são:
+#### **Visão Geral da Arquitetura**
+
+O CacheHunt será desenvolvido utilizando uma arquitetura de microsserviços orquestrada pelo .NET Aspire, com frontend em Angular. A escolha dessa arquitetura permite maior escalabilidade, manutenibilidade e separação de responsabilidades.
+
+#### **Componentes Principais**
 
 1. **Frontend (Angular)**
    - Interface de usuário responsiva e acessível
    - Comunicação com backend via REST API
    - Gerenciamento de estado com NGRX
-   - Componentes reutilizáveis com Material Design
+   - Componentes reutilizáveis com Material Design e TailwindCSS
 
 2. **Backend (.NET Aspire)**
-   - API Gateway para gerenciamento de requisições
-   - Microsserviço de Autenticação e Autorização
-   - Microsserviço de Geocaches (criação, busca, gerenciamento)
-   - Microsserviço de Usuários e Perfis
-   - Microsserviço de Gamificação (conquistas, níveis, desafios - avaliar)
-   - Microsserviço de Eventos e Notificações
-   - Microsserviço de Analytics e Estatísticas - avaliar
+   - **API Gateway**: Roteamento e orquestração de requisições
+   - **Serviço de Autenticação**: Gestão de identidade e autorizações
+   - **Serviço de Geocaches**: CRUD e busca de caches, incluindo operações geoespaciais
+   - **Serviço de Usuários**: Gestão de perfis e preferências
+   - **Serviço de Gamificação**: Sistema de conquistas, níveis e desafios
+   - **Serviço de Comunicação**: Mensagens, notificações e eventos
 
 3. **Persistência de Dados**
-   - Banco de dados relacional para dados estruturados (SQL Server)
-   - Banco de dados geoespacial para informações de localização (integração com PostGIS)
-   - Cache distribuído para melhorar performance (Redis)
-   - Armazenamento de objetos para mídias e arquivos (Blob Storage)
+   - **SQL Server**: Armazenamento principal de dados estruturados
+   - **Redis**: Cache distribuído para melhorar performance
+   - **Blob Storage**: Armazenamento de mídia (fotos de logs)
 
-4. **Serviços de Infraestrutura**
-   - Sistema de mensageria para comunicação assíncrona entre serviços (RabbitMQ)
-   - Serviço de logs centralizados (Serilog, Elastic Stack)
-   - Monitoramento e métricas (Prometheus, Grafana)
-   - CDN para distribuição de conteúdo estático
+4. **Infraestrutura**
+   - **Service Bus**: Comunicação assíncrona entre serviços
+   - **Logging Centralizado**: Monitoramento e rastreabilidade
+   - **CDN**: Distribuição eficiente de conteúdo estático
 
 #### **Padrões de Arquitetura**
 
-- **Microsserviços**: Para permitir desenvolvimento, implantação e escalabilidade independentes
-- **Clean Architecture**: Separação clara de responsabilidades entre camadas
-- **CQRS (Command Query Responsibility Segregation)**: Separação entre operações de leitura e escrita
-- **Event-Driven Architecture**: Comunicação assíncrona entre serviços via eventos
+- **Microsserviços**: Separação de responsabilidades e escalabilidade independente
+- **Clean Architecture**: Separação clara entre camadas de aplicação
+- **CQRS**: Separação entre operações de leitura e escrita
+- **Event-Driven Architecture**: Comunicação via eventos entre serviços
 - **Repository Pattern**: Abstração do acesso a dados
-- **MVC (Model-View-Controller)**: Para organização do frontend
-- **DDD (Domain-Driven Design)**: Para modelagem de domínios complexos
+- **Domain-Driven Design**: Modelagem do domínio de geocaching
 
-#### **Modelos C4**
+#### **Diagrama de Arquitetura**
 
-##### Nível 1: Diagrama de Contexto
-
-```
-[Espaço reservado para diagrama C4 de Contexto que mostrará o CacheHunt como um sistema central, interagindo com usuários, APIs externas de mapas, serviços de armazenamento e notificações]
-```
-
-##### Nível 2: Diagrama de Contêineres
-
-```
-[Espaço reservado para diagrama C4 de Contêineres que detalhará os principais contêineres da aplicação: Frontend SPA, Backend API, Bancos de Dados, Serviços de Mensageria, etc.]
-```
-
-##### Nível 3: Diagrama de Componentes
-
-```
-[Espaço reservado para diagrama C4 de Componentes que detalhará os componentes dentro de cada contêiner, como controladores, serviços, repositórios, etc.]
-```
-
-##### Nível 4: Diagrama de Código
-
-```
-[Espaço reservado para diagrama C4 de Código que mostrará exemplos de classes e interfaces para componentes críticos do sistema]
-```
+Será desenvolvido um diagrama de arquitetura detalhado mostrando os componentes do sistema e suas interações, utilizando a notação C4 (Context, Container, Component, Code).
 
 ### 3.3. Stack Tecnológica
 
-#### **Linguagens de Programação**
+#### **Backend**
 
-- **C#**: Escolhida para o backend devido à robustez, performance e integração nativa com .NET Aspire
-- **TypeScript**: Selecionada para o frontend por proporcionar tipagem estática ao JavaScript, facilitando a manutenção e reduzindo erros
-- **SQL**: Para consultas e manipulação de dados em bancos relacionais
-- **HTML/CSS**: Para estruturação e estilização da interface do usuário
+- **Linguagem**: C# 12
+- **Framework**: .NET 8 com .NET Aspire
+- **API**: ASP.NET Core Web API
+- **ORM**: Entity Framework Core
+- **Comunicação**: gRPC para comunicação entre serviços
+- **Mensageria**: Azure Service Bus / RabbitMQ
+- **Cache**: Redis
+- **Geoespacial**: NetTopologySuite
+- **Identidade**: IdentityServer / .NET Identity
 
-#### **Frameworks e Bibliotecas**
+#### **Frontend**
 
-**Backend**
-- **.NET Aspire**: Framework para desenvolvimento de aplicações distribuídas e em nuvem
-- **ASP.NET Core**: Framework web para construção de APIs
-- **Entity Framework Core**: ORM para acesso a dados
-- **AutoMapper**: Mapeamento objeto-objeto - substituir por outro
-- **MediatR**: Implementação de padrões mediator para CQRS
-- **FluentValidation**: Validação de entrada de dados
-- **Serilog**: Logging estruturado
-- **Hangfire**: Agendamento e processamento de tarefas em background
-- **NetTopologySuite**: Biblioteca para operações geoespaciais
-- **IdentityServer**: Autenticação e autorização
+- **Framework**: Angular 17+
+- **Linguagem**: TypeScript 5+
+- **UI**: Angular Material + TailwindCSS
+- **Estado**: NgRx
+- **Mapas**: Leaflet / MapLibre GL
+- **Gráficos**: ngx-charts / Chart.js
+- **Responsive Design**: Flexbox / Grid / Media Queries
 
-**Frontend**
-- **Angular**: Framework para desenvolvimento de aplicações web SPA
-- **Angular Material**: Componentes de UI
-- **NgRx**: Gerenciamento de estado baseado em Redux
-- **RxJS**: Programação reativa
-- **Leaflet/OpenLayers**: Bibliotecas de mapas para web
-- **Chart.js**: Visualização de dados
-- **TailwindCSS**: Framework CSS utilitário
-- **Angular PWA**: Recursos de Progressive Web App
+#### **DevOps & Infraestrutura**
 
-#### **Ferramentas de Desenvolvimento e Gestão de Projeto**
+- **CI/CD**: GitHub Actions / Azure DevOps
+- **Containerização**: Docker
+- **Orquestração**: Kubernetes
+- **Monitoramento**: Prometheus / Grafana
+- **Logging**: Serilog / Elastic Stack
+- **Documentação API**: Swagger / OpenAPI
 
-- **Rider**: IDE para desenvolvimento backend
-- **Visual Studio Code**: Editor para desenvolvimento frontend e backend
-- **Azure DevOps/GitHub**: Repositório de código e CI/CD
-- **Docker/Kubernetes**: Containerização e orquestração
-- **Postman/Swagger**: Teste e documentação de API
-- **SonarQube**: Análise estática de código -- utilizar outro
-- **Mermaid**: // preencher
+#### **Ferramentas de Desenvolvimento**
+
+- **IDE**: JetBrains Rider / Visual Studio 2022
+- **Editor**: Visual Studio Code
+- **Versionamento**: Git / GitHub
+- **Testes**: xUnit, Jest, Cypress
+- **Diagramação**: Mermaid / PlantUML
+- **Análise de Código**: SonarCloud / GitHub CodeQL
 
 ### 3.4. Considerações de Segurança
 
-O CacheHunt implementará diversas medidas de segurança para proteger os dados dos usuários e a integridade do sistema:
+O CacheHunt implementará medidas de segurança abrangentes:
 
 1. **Autenticação e Autorização**
-   - Implementação de OAuth 2.0/OpenID Connect para autenticação segura
-   - JWT (JSON Web Tokens) para gerenciamento de sessão
-   - Autorização baseada em roles e claims
-   - Mecanismo de refresh token com rotação segura
+   - OAuth 2.0 / OpenID Connect
+   - JWT com rotação segura
+   - Autorização baseada em roles e policies
+   - MFA para operações sensíveis
 
 2. **Proteção de Dados**
-   - Criptografia de dados sensíveis em repouso
-   - TLS/SSL para todas as comunicações
-   - Implementação das diretrizes da LGPD para proteção de dados pessoais
+   - Criptografia de dados sensíveis
+   - HTTPS/TLS em todas as comunicações
    - Anonimização de dados quando apropriado
+   - Conformidade com LGPD
 
 3. **Segurança da Aplicação**
-   - Proteção contra ataques comuns (XSS, CSRF, SQL Injection)
-   - Implementação de rate limiting para prevenir abusos
-   - Validação rigorosa de entradas em todas as camadas
-   - Sanitização de dados de saída
+   - Proteção contra OWASP Top 10
+   - Rate limiting e proteção contra abuso
+   - Validação e sanitização de entrada/saída
+   - Security headers modernos
 
-5. **Privacidade dos Usuários**
-   - Coordenadas exatas de caches visíveis apenas para usuários autenticados
-   - Opção de ocultar estatísticas e atividades do perfil público
-   - Controle de visibilidade de logs e fotos
-   - Mecanismos para usuários exercerem direitos de acesso, retificação e exclusão de dados
+4. **Privacidade**
+   - Controle granular de visibilidade de dados
+   - Opções de privacidade para usuários
+   - Localização precisa apenas para usuários autenticados
+   - Mecanismos para exercício de direitos do titular
 
-## 4. Próximos Passos
+## 4. Plano de Implementação
 
-Após a aprovação deste RFC, o desenvolvimento do CacheHunt seguirá o seguinte cronograma aproximado:
+O desenvolvimento do CacheHunt seguirá uma abordagem incremental, dividido em três fases principais ao longo de 6 meses:
 
-### Portfólio
+### Fase 1: Fundação e Infraestrutura (2 meses)
 
-6 meses de de desenvolvimento divididos em 3 partes, primeira vai ser definida pelo reginamento dos requisitos, arquitetura detalhada configuração da infra na vps e CI/CD, inicialização do projeto backend com aspire, servico de authenticaão, 2 parte finalização dos outros serviços back end, 3 parte front end e junção do back com front. // ajustar isso acima para e formatar como foi feito abaixo anteriormete
+- Refinamento dos requisitos e casos de uso
+- Definição detalhada da arquitetura
+- Configuração da infraestrutura em VPS
+- Implementação do pipeline CI/CD
+- Desenvolvimento do serviço de autenticação
+- Criação da estrutura base do projeto .NET Aspire
+- Desenvolvimento da estrutura base do frontend Angular
 
-<!-- 1. **Mês 1-2**:
-   - Refinamento de requisitos e casos de uso
-   - Design detalhado da arquitetura
-   - Prototipação da interface do usuário
-   - Configuração do ambiente de desenvolvimento
+### Fase 2: Desenvolvimento do Backend (2 meses)
 
-2. **Mês 3-4**:
-   - Implementação do core backend (autenticação, geocaches básicos)
-   - Desenvolvimento da estrutura base do frontend
-   - Integração com serviços de mapas
-   - Testes unitários e integração contínua
+- Implementação do serviço de Geocaches
+- Desenvolvimento do serviço de Usuários
+- Implementação do serviço de Gamificação
+- Desenvolvimento da API Gateway
+- Integração entre microsserviços
+- Implementação da camada de persistência
+- Testes unitários e de integração
 
-3. **Mês 5-6**:
-   - Implementação de funcionalidades básicas de usuário
-   - Sistema básico de logs e registros
-   - Apresentação de Portfólio I com MVP funcional
+### Fase 3: Frontend e Integração (2 meses)
 
-### Portfólio II (2º Semestre)
+- Desenvolvimento da interface de usuário
+- Implementação do sistema de mapas
+- Desenvolvimento de componentes de gamificação
+- Integração entre frontend e backend
+- Testes de sistema e aceitação
+- Otimização de performance
+- Preparação para entrega
 
-4. **Mês 7-8**:
-   - Implementação do sistema de gamificação (conquistas, níveis)
-   - Desenvolvimento de recursos sociais
-   - Otimização de performance e UX
+## 5. Métricas de Sucesso
 
-5. **Mês 9-10**:
-   - Implementação de funcionalidades avançadas (eventos, desafios)
-   - Testes de usabilidade e correções
-   - Documentação técnica completa
+O sucesso do projeto será avaliado pelas seguintes métricas:
 
-6. **Mês 11-12**:
-   - Refinamentos finais e otimizações
-   - Testes de segurança e performance
-   - Preparação para apresentação final
-   - Entrega e defesa do TCC -->
+1. **Funcionais**
+   - 100% dos requisitos funcionais implementados
+   - Navegação fluida entre as funcionalidades
+   - Sistema de gamificação completo e engajante
 
-## 5. Referências
+2. **Técnicas**
+   - Tempo de resposta abaixo de 3 segundos para operações comuns
+   - Cobertura de testes acima de 80%
+   - Zero vulnerabilidades críticas de segurança
+   - Escalabilidade comprovada para suportar 1000+ usuários simultâneos
 
-[Lista de referências a ser completada pelo estudante, incluindo:]
+3. **Experiência do Usuário**
+   - Interface intuitiva e responsiva
+   - Feedback positivo dos usuários em testes de usabilidade
+   - Fluxos de navegação otimizados
 
-<!-- colocar texto com os link para referencias -->
+## 6. Referências
 
-- Documentação oficial do .NET Aspire
-- Documentação oficial do Angular
-- Literatura sobre geocaching e suas regras
-- Artigos científicos sobre gamificação
-- Referências sobre arquitetura de software e microserviços
-- Padrões de design e boas práticas de desenvolvimento
-- Artigos e recursos sobre segurança web
-- Documentação de APIs de mapas e serviços geoespaciais
-- Estudos sobre usabilidade e experiência do usuário
-- Recursos sobre DevOps e CI/CD
+- Documentação oficial do .NET Aspire: [https://learn.microsoft.com/en-us/dotnet/aspire/](https://learn.microsoft.com/en-us/dotnet/aspire/)
+- Documentação Angular: [https://angular.io/docs](https://angular.io/docs)
+- Geocaching - Guia Oficial: [https://www.geocaching.com/help/index.php?pg=kb.chapter&id=141](https://www.geocaching.com/help/index.php?pg=kb.chapter&id=141)
+- Deterding, S., Dixon, D., Khaled, R., & Nacke, L. (2011). From game design elements to gamefulness: defining "gamification". Proceedings of the 15th International Academic MindTrek Conference.
+- Evans, Eric. (2003). Domain-Driven Design: Tackling Complexity in the Heart of Software. Addison-Wesley.
+- Newman, Sam. (2021). Building Microservices: Designing Fine-Grained Systems. O'Reilly Media.
+- OWASP Top Ten: [https://owasp.org/www-project-top-ten/](https://owasp.org/www-project-top-ten/)
+- Lei Geral de Proteção de Dados (LGPD): [https://www.gov.br/cidadania/pt-br/acesso-a-informacao/lgpd](https://www.gov.br/cidadania/pt-br/acesso-a-informacao/lgpd)
 
-## 6. Apêndices (Opcionais)
+## 7. Apêndices
 
-[Espaço reservado para conteúdo adicional como mockups iniciais da interface, exemplos de diagramas de fluxo, detalhes específicos sobre regras de geocaching a serem implementadas, etc.]
+[A serem desenvolvidos na próxima etapa]
 
-## 7. Avaliações de Professores
+## 8. Avaliações de Professores
 
-### Considerações Professor/a:
+### Orientador(a):
 
 [Espaço reservado para considerações e assinatura]
 
-### Considerações Professor/a:
+### Professor(a) de Arquitetura de Software:
 
 [Espaço reservado para considerações e assinatura]
 
-### Considerações Professor/a:
+### Professor(a) de Desenvolvimento Web:
 
 [Espaço reservado para considerações e assinatura]
