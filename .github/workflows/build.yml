@@ -22,10 +22,10 @@ jobs:
           dotnet-version: 9.0.x
 
       - name: Restaurar pacotes
-        run: dotnet restore src/backend/CacheHunt/CacheHunt.sln
+        run: dotnet restore src/backend/CacheHunt.sln
 
       - name: Compilar aplicação
-        run: dotnet build src/backend/CacheHunt/CacheHunt.sln --configuration Release --no-restore
+        run: dotnet build src/backend/CacheHunt.sln --configuration Release --no-restore
 
       # - name: Rodar testes
       # run: dotnet test src/backend/CacheHunt.sln --configuration Release --no-build --verbosity normal
