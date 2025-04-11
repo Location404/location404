@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.0.0
+MinimumVisualStudioVersion = 17.8.0.0
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Location404.AppHost", "Location404\Location404.AppHost\Location404.AppHost.csproj", "{58AFC315-0B28-4E0A-B265-329BD5660381}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Location404.ServiceDefaults", "Location404\Location404.ServiceDefaults\Location404.ServiceDefaults.csproj", "{147F2C34-51F4-4A10-B361-5ED2D627A1CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{58AFC315-0B28-4E0A-B265-329BD5660381}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58AFC315-0B28-4E0A-B265-329BD5660381}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58AFC315-0B28-4E0A-B265-329BD5660381}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58AFC315-0B28-4E0A-B265-329BD5660381}.Release|Any CPU.Build.0 = Release|Any CPU
+		{147F2C34-51F4-4A10-B361-5ED2D627A1CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{147F2C34-51F4-4A10-B361-5ED2D627A1CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{147F2C34-51F4-4A10-B361-5ED2D627A1CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{147F2C34-51F4-4A10-B361-5ED2D627A1CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AE2235D5-108F-4368-A74A-540E21D81526}
+	EndGlobalSection
+EndGlobal
