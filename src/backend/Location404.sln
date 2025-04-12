@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Location404.ServiceDefaults
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreServices", "CoreServices", "{2D2B5A2A-DCFF-A56B-8C74-6D8F342CEAAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Location404.IdentityService", "Location404\CoreServices\Location404.Identity\Location404.IdentityService.csproj", "{01D9E1DC-B030-495D-BD32-6637E7AABE3D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Location404.IdentityService", "Location404\CoreServices\Location404.IdentityService\Location404.IdentityService.csproj", "{01D9E1DC-B030-495D-BD32-6637E7AABE3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
