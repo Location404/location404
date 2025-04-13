@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../CoreServices/Location404.IdentityService/Location404.IdentityService.csproj" />
+    <ProjectReference Include="..\Location404.IdentityService\Location404.IdentityService.API\Location404.IdentityService.API.csproj" />
   </ItemGroup>
-
 </Project>
