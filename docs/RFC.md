@@ -93,38 +93,7 @@ O projeto adota uma arquitetura de microsserviços para garantir escalabilidade 
 
 #### Representação dos Requisitos
 
-**Diagrama de Casos de Uso (UML)**
-
-```mermaid
-graph TD
-    subgraph "Location404 System"
-        Player[Jogador]
-        Admin[Admin]
-        System[Sistema]
-        
-        Player --> ManageProfile[Gerenciar Perfil]
-        Player --> PlayGame[Jogar Partida]
-        
-        ManageProfile --> Register[Registrar Conta]
-        ManageProfile --> Auth[Autenticar Usuário]
-        
-        PlayGame --> SelectGame[Selecionar Jogo]
-        PlayGame --> RespondChallenge[Responder Desafios]
-        PlayGame --> ViewResults[Ver Resultados]
-        
-        Admin --> ManageSystem[Gerenciar Sistema]
-        Admin --> ViewMetrics[Visualizar Métricas]
-        
-        System --> ProvideData[Prover Dados]
-        System --> NotifyEvents[Notificar Eventos]
-        
-        ProvideData --> ProvideLocations[Fornecer Locações]
-        ProvideData --> CalculateScore[Calcular Pontuação]
-        
-        NotifyEvents --> SendPush[Enviar Push]
-        NotifyEvents --> NotifyFriends[Notificar Amigos]
-    end
-```
+##### -<u>[___Diagrama de Casos de Uso___](./diagramas/casos-de-uso.md)</u>
 
 ### 3.2. Considerações de Design
 
