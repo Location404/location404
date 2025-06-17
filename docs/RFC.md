@@ -233,6 +233,7 @@ O Location404 implementará várias medidas de segurança para proteger dados de
 - OWASP. Web Security Testing Guide. https://owasp.org/www-project-web-security-testing-guide/
 - Google Maps Platform. API Documentation. https://developers.google.com/maps/documentation
 - OpenStreetMap. API Documentation. https://wiki.openstreetmap.org/wiki/API
+- Traefik Labs. Traefik Documentation. https://doc.traefik.io/traefik/
 
 ## 6. Apêndices
 
