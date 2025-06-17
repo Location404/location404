@@ -1,13 +1,10 @@
 # Capa
-- **Título do Projeto**: Location404 - Plataforma de Geolocalização em Tempo Real
+- **Título do Projeto**: Location404 - Jogo de Geolocalização Multijogador em Tempo Real
 - **Nome do Estudante**: Ryan Gabriel Mazzei Bromati
 - **Curso**: Engenharia de Software
-<!-- - **Data de Entrega**: [Data] -->
 
 # Resumo
-
-Este documento apresenta a especificação técnica para o desenvolvimento do Location404, uma plataforma de geolocalização interativa inspirada no conceito do GeoGuessr. O projeto utiliza uma arquitetura de microsserviços com C# .NET 9+ e Angular 18+, permitindo escalabilidade, alta disponibilidade e separação clara de responsabilidades. O Location404 oferecerá uma experiência imersiva onde usuários poderão testar seus conhecimentos geográficos em cenários diversos, competir com outros jogadores, e participar de desafios temáticos, tudo sustentado por uma infraestrutura robusta de serviços distribuídos.
-
+Este documento apresenta a especificação técnica do Location404, um jogo de geolocalização multijogador em tempo real inspirado no conceito do GeoGuessr. O projeto adota uma arquitetura de microsserviços com C# .NET 9+ e Angular 18+, garantindo escalabilidade, alta disponibilidade e separação clara de responsabilidades. O Location404 proporcionará uma experiência imersiva, permitindo que os usuários testem seus conhecimentos geográficos em diversos cenários e compitam com outros jogadores, sustentado por uma infraestrutura robusta de serviços distribuídos.
 ## 1. Introdução
 
 ### Contexto
@@ -17,7 +14,6 @@ O mercado de jogos geográficos online tem crescido significativamente nos últi
 O projeto Location404 é relevante para o campo da engenharia de software pois implementa conceitos avançados de arquitetura distribuída em um cenário prático e atrativo. A adoção de microsserviços em um jogo de geolocalização permite explorar desafios reais de desenvolvimento de software, como latência em comunicações distribuídas, persistência de dados, escalabilidade em momentos de pico de uso, e segurança em um ambiente altamente interativo. Além disso, o projeto demonstra a aplicação prática de padrões arquiteturais modernos e tecnologias de ponta.
 
 ### Objetivos
-
 **Objetivo Principal:**
 Desenvolver uma plataforma de jogo de geolocalização completa, baseada em microsserviços, que ofereça desempenho superior, alta disponibilidade e uma experiência de usuário envolvente.
 
@@ -25,7 +21,6 @@ Desenvolver uma plataforma de jogo de geolocalização completa, baseada em micr
 - Implementar uma arquitetura de microsserviços escalável e resiliente
 - Criar uma interface de usuário responsiva e intuitiva com Angular 18+
 - Desenvolver um sistema de autenticação seguro e eficiente
-- Estabelecer mecanismos de notificação em tempo real para eventos do jogo
 - Implementar um sistema preciso de geolocalização e cálculo de pontuação
 - Criar uma infraestrutura de dados que permita expansão futura do jogo
 - Desenvolver um sistema básico de competição e ranking entre jogadores
@@ -40,12 +35,11 @@ O projeto adota uma arquitetura de microsserviços para garantir escalabilidade 
 ### Problemas a Resolver
 
 1. **Latência e Responsividade**: Garantir tempos de resposta rápidos mesmo com processamento distribuído entre microsserviços.
-2. **Escalabilidade**: Suportar picos de tráfego durante eventos ou horários de alta demanda.
-3. **Integridade de Dados**: Manter a consistência dos dados do jogo e perfis de usuário entre serviços distribuídos.
-4. **Segurança**: Proteger dados sensíveis dos usuários e evitar trapaças no sistema de jogo.
-5. **Disponibilidade**: Garantir que o sistema permaneça operacional mesmo quando partes específicas estejam em manutenção.
-6. **Experiência do Usuário**: Oferecer uma interface fluida e intuitiva apesar da complexidade da infraestrutura.
-7. **Integração de Dados Geográficos**: Incorporar fontes de dados geográficos precisos e atualizados.
+2. **Integridade de Dados**: Manter a consistência dos dados do jogo e perfis de usuário entre serviços distribuídos.
+3. **Segurança**: Proteger dados sensíveis dos usuários e evitar trapaças no sistema de jogo.
+4. **Disponibilidade**: Garantir que o sistema permaneça operacional mesmo quando partes específicas estejam em manutenção.
+5. **Experiência do Usuário**: Oferecer uma interface fluida e intuitiva apesar da complexidade da infraestrutura.
+6. **Integração de Dados Geográficos**: Incorporar fontes de dados geográficos precisos e atualizados.
 
 ### Limitações
 
@@ -70,11 +64,9 @@ O projeto adota uma arquitetura de microsserviços para garantir escalabilidade 
 4. **RF04** - O sistema deve apresentar localizações aleatórias ou temáticas para os jogadores.
 5. **RF05** - O sistema deve calcular a pontuação baseada na proximidade da resposta do jogador à localização real.
 6. **RF06** - O sistema deve armazenar histórico de partidas dos usuários.
-7. **RF07** - O sistema deve permitir a criação de rankings globais e por categorias.
-8. **RF08** - O sistema deve enviar notificações de novos desafios e convites.
-9. **RF09** - O sistema deve permitir que usuários adicionem amigos e os desafiem para partidas.
-10. **RF11** - O sistema deve permitir que usuários visualizem e editem seu perfil.
-11. **RF14** - O sistema deve integrar dados geográficos de múltiplas fontes.
+7. **RF07** - O sistema deve permitir a criação de rankings globais.
+8. **RF08** - O sistema deve permitir que usuários adicionem amigos e os desafiem para partidas.
+9. **RF9** - O sistema deve permitir que usuários visualizem e editem seu perfil.
 
 **Requisitos Não-Funcionais (RNF):**
 
@@ -84,12 +76,11 @@ O projeto adota uma arquitetura de microsserviços para garantir escalabilidade 
 4. **RNF05** - O sistema deve ser compatível com os principais navegadores (Chrome, Firefox, Safari, Edge).
 5. **RNF07** - O sistema deve resistir a ataques comuns (XSS, CSRF, injeção SQL).
 6. **RNF08** - As APIs devem ser RESTful com documentação Scalar/OpenAPI.
-7. **RNF09** - O sistema deve implementar um mecanismo de fallback quando serviços específicos estiverem indisponíveis.
-8. **RNF10** - O sistema deve implementar observabilidade com logs, métricas e traces.
-9. **RNF11** - O sistema deve garantir integridade transacional entre microsserviços.
-10. **RNF12** - O sistema deve implementar rate limiting para prevenir abusos.
-11. **RNF13** - O sistema deve usar cache para otimizar requisições recorrentes.
-12. **RNF14** - O sistema deve possuir cobertura de testes automatizados de pelo menos 80%.
+7. **RNF10** - O sistema deve implementar observabilidade com logs, métricas e traces.
+8. **RNF11** - O sistema deve garantir integridade transacional entre microsserviços.
+9. **RNF12** - O sistema deve implementar rate limiting para prevenir abusos.
+10. **RNF13** - O sistema deve usar cache para otimizar requisições recorrentes.
+11. **RNF14** - O sistema deve possuir cobertura de testes automatizados de pelo menos 80%.
 
 #### Representação dos Requisitos
 
@@ -101,11 +92,10 @@ O projeto adota uma arquitetura de microsserviços para garantir escalabilidade 
 
 O Location404 seguirá uma arquitetura de microsserviços, com os seguintes componentes principais:
 
-1. **Location404-User-Identity-Service**: Gerenciamento de identidade e autenticação
-2. **Location404-API-Gateway**: Ponto de entrada único e roteador para outros serviços
-3. **Location404-Notification-Hub**: Sistema centralizado de notificações
-4. **Location404-GameCore-Engine**: Lógica central de jogabilidade
-5. **Location404-GeoData-Service**: Fornecimento de dados geográficos
+1. **Location404-API-Gateway**: Ponto de entrada único e roteador para outros serviços
+2. **Location404-UserIdentity-Service**: Gerenciamento de identidade e autenticação
+3. **Location404-GameCore-Engine**: Lógica central de jogabilidade
+4. **Location404-GeoData-Service**: Fornecimento de dados geográficos
 
 Cada microsserviço será independente, com seu próprio banco de dados, e comunicará com outros serviços por meio de APIs RESTful e mensageria assíncrona. O API Gateway atua como ponto central de entrada, enquanto o frontend Angular 18+ consumirá dados através deste gateway.
 
@@ -145,9 +135,8 @@ Cada microsserviço será independente, com seu próprio banco de dados, e comun
 - **Entity Framework Core 9+**: ORM para acesso a dados.
 - **Identity Server**: Para autenticação e autorização.
 - **MediatR**: Para implementação do padrão mediator.
-- **Ocelot**: Para implementação do API Gateway.
+- **Ocelot/Yarp**: Para implementação do API Gateway.
 - **AutoMapper**: Para mapeamento entre entidades e DTOs.
-- **FluentValidation**: Para validação de dados.
 - **Polly**: Para implementação de políticas de resiliência.
 - **SignalR**: Para comunicação em tempo real.
 - **Serilog**: Para logging estruturado.
@@ -167,20 +156,19 @@ Cada microsserviço será independente, com seu próprio banco de dados, e comun
 
 **Infraestrutura e DevOps:**
 
-- **Docker e Kubernetes**: Para containerização e orquestração.
-- **Redis**: Para cache distribuído.
+- **Docker e Kubernetes**: Para conteinerização e orquestração.
+- **Redis/Dragonfly**: Para cache distribuído.
 - **PostgreSQL**: Como banco de dados principal.
-- **MongoDB**: Para armazenamento de dados geoespaciais.
+- **MongoDB**: Para armazenamento de dados geo-espaciais.
 - **RabbitMQ/Kafka**: Para mensageria entre serviços.
-- **Prometheus e Grafana**: Para monitoramento e alertas.
+- **Prometheus, Grafana e Loki**: Para monitoramento, alertas e métricas.
 - **GitHub Actions**: Para CI/CD.
 
 #### Ferramentas de Desenvolvimento e Gestão de Projeto
 
 - **Rider**: IDE principal para desenvolvimento backend.
 - **Visual Studio Code**: IDE para desenvolvimento frontend.
-- **GitHub**: Para controle de versão e gerenciamento do projeto.
-- **Confluence**: Para documentação técnica e de produto.
+- **GitHub**: Para controle de versão, gerenciamento do projeto e documentação.
 - **JMeter/K6**: Para testes de carga.
 
 ### 3.4. Considerações de Segurança
@@ -192,7 +180,6 @@ O Location404 implementará várias medidas de segurança para proteger dados de
    - Integração com login do Google.
    - JWT (JSON Web Tokens) com tempo de expiração curto.
    - Refresh tokens com rotação para sessões longas.
-   - RBAC (Role-Based Access Control) para diferentes níveis de acesso.
 
 2. **Proteção de Dados**:
    - Criptografia de dados sensíveis em trânsito (TLS 1.3) e em repouso.
@@ -215,6 +202,7 @@ O Location404 implementará várias medidas de segurança para proteger dados de
 5. **Detecção e Resposta**:
    - Logging abrangente de eventos de segurança.
    - Monitoramento de anomalias em tempo real.
+   - Métricas de incidentes e tempo de resposta.
 
 6. **Segurança Específica do Jogo**:
    - Validação server-side de todas as ações de jogo.
@@ -224,17 +212,15 @@ O Location404 implementará várias medidas de segurança para proteger dados de
 
 ### Cronograma de Desenvolvimento
 
-| Mês          | Atividades                                                                                                                                                       |
-| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Maio**     | - Finalização e aprovação do RFC<br>- Setup do ambiente de desenvolvimento e CI/CD<br>- Início do desenvolvimento do Location404-Auth-Service                    |
-| **Junho**    | - Implementação do núcleo do Location404-Auth-Service (autenticação com email)<br>- Integração com autenticação Google<br>- Testes e refinamento do Auth-Service |
-| **Julho**    | - Desenvolvimento do Location404-API-Gateway<br>- Setup inicial do frontend Angular e primeiras integrações                                                      |
-| **Agosto**   | - Início do desenvolvimento do GameCore-Engine (lógica básica de jogo)<br>- Desenvolvimento da interface de usuário para jogabilidade básica                     |
-| **Setembro** | - Integração com serviços de dados geográficos (GeoData-Service)<br>- Implementação do sistema de pontuação e rankings básicos                                   |
-| **Outubro**  | - Desenvolvimento do Notification-Hub<br>- Implementação de funcionalidades sociais (amigos, desafios)                                                           |
-| **Novembro** | - Testes de sistema e otimizações de performance<br>- Refinamento da UX/UI e correções de bugs                                                                   |
-| **Dezembro** | - Finalização do MVP, testes finais e documentação<br>- Preparação para apresentação e entrega final                                                             |
-
+| Mês          | Atividades                                                                                                                                                           |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Junho**    | - Finalização e aprovação do RFC<br>- Setup do ambiente de desenvolvimento e CI/CD<br>- Início do desenvolvimento do Location404-Auth-Service                        |
+| **Julho**    | - Implementação do núcleo do Location404-UserIdentity-Service <br>- Integração com autenticação Google<br>- Testes e refinamento do Location404-UserIdentity-Service |
+| **Agosto**   | - Desenvolvimento do Location404-API-Gateway<br>- Setup inicial do frontend Angular e primeiras integrações                                                          |
+| **Setembro** | - Início do desenvolvimento do GameCore-Engine (lógica básica de jogo)<br>- Desenvolvimento da interface de usuário para jogabilidade básica                         |
+| **Outubro**  | - Integração com serviços de dados geográficos (GeoData-Service)<br>- Implementação do sistema de pontuação e rankings básicos                                       |
+| **Novembro** | - Testes de sistema e otimizações de performance<br>- Refinamento da UX/UI e correções de bugs                                                                       |
+| **Dezembro** | - Finalização do MVP, testes finais e documentação<br>- Preparação para apresentação e entrega final                                                                 |
 
 ## 5. Referências
 
@@ -258,7 +244,7 @@ O Location404 implementará várias medidas de segurança para proteger dados de
 ### Apêndice B: Estimativa de Recursos
 
 #### Infraestrutura Inicial
-- 3-5 nós Kubernetes para ambiente de produção
+- Docker Swarm para ambiente de produção
 - Banco de dados PostgreSQL gerenciado
 - Cache Redis distribuído 
 - Sistema de mensageria RabbitMQ
