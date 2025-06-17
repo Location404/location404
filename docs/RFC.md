@@ -67,6 +67,7 @@ O projeto adota uma arquitetura de microsserviços para garantir escalabilidade 
 7. **RF07** - O sistema deve permitir a criação de rankings globais.
 8. **RF08** - O sistema deve permitir que usuários adicionem amigos e os desafiem para partidas.
 9. **RF9** - O sistema deve permitir que usuários visualizem e editem seu perfil.
+10. RF10 - O sistema deve permitir que usuários recuperem senhas via email.
 
 **Requisitos Não-Funcionais (RNF):**
 
@@ -81,6 +82,9 @@ O projeto adota uma arquitetura de microsserviços para garantir escalabilidade 
 9. **RNF12** - O sistema deve implementar rate limiting para prevenir abusos.
 10. **RNF13** - O sistema deve usar cache para otimizar requisições recorrentes.
 11. **RNF14** - O sistema deve possuir cobertura de testes automatizados de pelo menos 80%.
+12. **RNF15** - O sistema deve suportar deployment sem downtime (blue-green deployment).
+13. **RNF16** - O sistema deve implementar monitoramento de saúde em tempo real de todos os serviços.
+14. **RNF17** - O sistema deve suportar crescimento horizontal automático baseado em demanda.
 
 #### Representação dos Requisitos
 
@@ -92,17 +96,17 @@ O projeto adota uma arquitetura de microsserviços para garantir escalabilidade 
 
 O Location404 seguirá uma arquitetura de microsserviços, com os seguintes componentes principais:
 
-1. **Location404-API-Gateway**: Ponto de entrada único e roteador para outros serviços
+1. **Traefik**: Proxy reverso e load balancer para roteamento de requisições
 2. **Location404-UserIdentity-Service**: Gerenciamento de identidade e autenticação
 3. **Location404-GameCore-Engine**: Lógica central de jogabilidade
 4. **Location404-GeoData-Service**: Fornecimento de dados geográficos
 
-Cada microsserviço será independente, com seu próprio banco de dados, e comunicará com outros serviços por meio de APIs RESTful e mensageria assíncrona. O API Gateway atua como ponto central de entrada, enquanto o frontend Angular 18+ consumirá dados através deste gateway.
+Cada microsserviço será independente, com seu próprio banco de dados, e comunicará com outros serviços por meio de APIs RESTful e mensageria assíncrona. O Traefik atua como proxy reverso e load balancer, gerenciando o roteamento de requisições para os serviços apropriados, enquanto o frontend Angular 18+ consumirá dados através deste proxy.
 
 #### Padrões de Arquitetura
 
 - **Microsserviços**: Arquitetura principal, permitindo desenvolvimento, implantação e escalabilidade independentes.
-- **API Gateway**: Para rotear requisições aos serviços apropriados e simplificar o acesso do cliente.
+- **Proxy Reverso**: Traefik para roteamento inteligente de requisições aos serviços apropriados e simplificação do acesso do cliente.
 - **CQRS (Command Query Responsibility Segregation)**: Para separar operações de leitura e escrita em alguns serviços.
 - **Event-Driven Architecture**: Para comunicação assíncrona entre serviços usando mensageria.
 - **Repository Pattern**: Para abstração da camada de persistência.
@@ -135,7 +139,6 @@ Cada microsserviço será independente, com seu próprio banco de dados, e comun
 - **Entity Framework Core 9+**: ORM para acesso a dados.
 - **Identity Server**: Para autenticação e autorização.
 - **MediatR**: Para implementação do padrão mediator.
-- **Ocelot/Yarp**: Para implementação do API Gateway.
 - **AutoMapper**: Para mapeamento entre entidades e DTOs.
 - **Polly**: Para implementação de políticas de resiliência.
 - **SignalR**: Para comunicação em tempo real.
@@ -157,6 +160,7 @@ Cada microsserviço será independente, com seu próprio banco de dados, e comun
 **Infraestrutura e DevOps:**
 
 - **Docker e Kubernetes**: Para conteinerização e orquestração.
+- **Traefik**: Para proxy reverso, load balancing e roteamento.
 - **Redis/Dragonfly**: Para cache distribuído.
 - **PostgreSQL**: Como banco de dados principal.
 - **MongoDB**: Para armazenamento de dados geo-espaciais.
@@ -216,7 +220,7 @@ O Location404 implementará várias medidas de segurança para proteger dados de
 | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Junho**    | - Finalização e aprovação do RFC<br>- Setup do ambiente de desenvolvimento e CI/CD<br>- Início do desenvolvimento do Location404-Auth-Service                        |
 | **Julho**    | - Implementação do núcleo do Location404-UserIdentity-Service <br>- Integração com autenticação Google<br>- Testes e refinamento do Location404-UserIdentity-Service |
-| **Agosto**   | - Desenvolvimento do Location404-API-Gateway<br>- Setup inicial do frontend Angular e primeiras integrações                                                          |
+| **Agosto**   | - Configuração e implementação do Traefik para proxy reverso<br>- Setup inicial do frontend Angular e primeiras integrações                                          |
 | **Setembro** | - Início do desenvolvimento do GameCore-Engine (lógica básica de jogo)<br>- Desenvolvimento da interface de usuário para jogabilidade básica                         |
 | **Outubro**  | - Integração com serviços de dados geográficos (GeoData-Service)<br>- Implementação do sistema de pontuação e rankings básicos                                       |
 | **Novembro** | - Testes de sistema e otimizações de performance<br>- Refinamento da UX/UI e correções de bugs                                                                       |
@@ -235,7 +239,7 @@ O Location404 implementará várias medidas de segurança para proteger dados de
 ### Apêndice A: Glossário de Termos
 
 - **Microsserviços**: Estilo arquitetural onde o aplicativo é composto de pequenos serviços autônomos.
-- **API Gateway**: Componente que serve como ponto de entrada único para todos os clientes.
+- **Proxy Reverso**: Componente que atua como intermediário para requisições de clientes, encaminhando-as para serviços backend.
 - **JWT (JSON Web Token)**: Padrão aberto para criação de tokens de acesso.
 - **CQRS**: Padrão que separa operações de leitura e escrita.
 - **Event-Driven Architecture**: Paradigma de design focado na produção, detecção e reação a eventos.
