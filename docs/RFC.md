@@ -5,30 +5,31 @@
 
 # Resumo
 Este documento apresenta a especificação técnica do Location404, um jogo de geolocalização multijogador em tempo real inspirado no conceito do GeoGuessr. O projeto adota uma arquitetura de microsserviços com C# .NET 9+ e Angular 18+, garantindo escalabilidade, alta disponibilidade e separação clara de responsabilidades. O Location404 proporcionará uma experiência imersiva, permitindo que os usuários testem seus conhecimentos geográficos em diversos cenários e compitam com outros jogadores, sustentado por uma infraestrutura robusta de serviços distribuídos.
+
 ## 1. Introdução
 
 ### Contexto
 O mercado de jogos geográficos online tem crescido significativamente nos últimos anos, com plataformas como GeoGuessr ganhando popularidade tanto para entretenimento quanto para fins educacionais. Nesse contexto, o Location404 surge como uma alternativa moderna que busca explorar as mais recentes tecnologias de desenvolvimento web e arquiteturas distribuídas para oferecer uma experiência superior ao usuário.
 
 ### Justificativa
-O projeto Location404 é relevante para o campo da engenharia de software pois implementa conceitos avançados de arquitetura distribuída em um cenário prático e atrativo. A adoção de microsserviços em um jogo de geolocalização permite explorar desafios reais de desenvolvimento de software, como latência em comunicações distribuídas, persistência de dados, escalabilidade em momentos de pico de uso, e segurança em um ambiente altamente interativo. Além disso, o projeto demonstra a aplicação prática de padrões arquiteturais modernos e tecnologias de ponta.
+O projeto Location404 é relevante para o campo da engenharia de software pois implementa conceitos avançados de arquitetura distribuída em um cenário prático e atrativo. A adoção de microsserviços em um jogo de geolocalização permite explorar desafios reais de desenvolvimento de software, como latência em comunicações distribuídas, persistência de dados, escalabilidade em momentos de pico de uso e segurança em um ambiente altamente interativo. Além disso, o projeto demonstra a aplicação prática de padrões arquiteturais modernos e tecnologias de ponta.
 
 ### Objetivos
 **Objetivo Principal:**
 Desenvolver uma plataforma de jogo de geolocalização completa, baseada em microsserviços, que ofereça desempenho superior, alta disponibilidade e uma experiência de usuário envolvente.
 
 **Objetivos Secundários:**
-- Implementar uma arquitetura de microsserviços escalável e resiliente
-- Criar uma interface de usuário responsiva e intuitiva com Angular 18+
-- Desenvolver um sistema de autenticação seguro e eficiente
-- Implementar um sistema preciso de geolocalização e cálculo de pontuação
-- Criar uma infraestrutura de dados que permita expansão futura do jogo
-- Desenvolver um sistema básico de competição e ranking entre jogadores
+- Implementar uma arquitetura de microsserviços escalável e resiliente.
+- Criar uma interface de usuário responsiva e intuitiva com Angular 18+.
+- Desenvolver um sistema de autenticação seguro e eficiente.
+- Implementar um sistema preciso de geolocalização e cálculo de pontuação.
+- Criar uma infraestrutura de dados que permita expansão futura do jogo.
+- Desenvolver um sistema básico de competição e ranking entre jogadores.
 
 ## 2. Descrição do Projeto
 
 ### Tema do Projeto
-O Location404 é uma plataforma de jogo online que desafia os usuários a identificar localizações geográficas com base em imagens de satélite, fotos panorâmicas de ruas, e outros recursos visuais. Utilizando dados geográficos precisos, o jogo transporta os jogadores para diversos locais ao redor do mundo, testando seu conhecimento em geografia, culturas, paisagens urbanas e naturais.
+O Location404 é uma plataforma de jogo online que desafia os usuários a identificar localizações geográficas com base em imagens de satélite, fotos panorâmicas de ruas e outros recursos visuais. Utilizando dados geográficos precisos, o jogo transporta os jogadores para diversos locais ao redor do mundo, testando seu conhecimento em geografia, culturas, paisagens urbanas e naturais.
 
 O projeto adota uma arquitetura de microsserviços para garantir escalabilidade e manutenibilidade, utilizando C# .NET 9+ para o backend e Angular 18+ para o frontend. Cada componente do sistema é isolado em seu próprio serviço, comunicando-se através de interfaces bem definidas, facilitando a evolução independente e a resiliência do sistema.
 
@@ -66,8 +67,8 @@ O projeto adota uma arquitetura de microsserviços para garantir escalabilidade 
 6. **RF06** - O sistema deve armazenar histórico de partidas dos usuários.
 7. **RF07** - O sistema deve permitir a criação de rankings globais.
 8. **RF08** - O sistema deve permitir que usuários adicionem amigos e os desafiem para partidas.
-9. **RF9** - O sistema deve permitir que usuários visualizem e editem seu perfil.
-10. RF10 - O sistema deve permitir que usuários recuperem senhas via email.
+9. **RF09** - O sistema deve permitir que usuários visualizem e editem seu perfil.
+10. **RF10** - O sistema deve permitir que usuários recuperem senhas via email.
 
 **Requisitos Não-Funcionais (RNF):**
 
@@ -96,10 +97,10 @@ O projeto adota uma arquitetura de microsserviços para garantir escalabilidade 
 
 O Location404 seguirá uma arquitetura de microsserviços, com os seguintes componentes principais:
 
-1. **Traefik**: Proxy reverso e load balancer para roteamento de requisições
-2. **Location404-UserIdentity-Service**: Gerenciamento de identidade e autenticação
-3. **Location404-GameCore-Engine**: Lógica central de jogabilidade
-4. **Location404-GeoData-Service**: Fornecimento de dados geográficos
+1. **Traefik**: Proxy reverso e load balancer para roteamento de requisições.
+2. **Location404-UserIdentity-Service**: Gerenciamento de identidade e autenticação.
+3. **Location404-GameCore-Engine**: Lógica central de jogabilidade.
+4. **Location404-GeoData-Service**: Fornecimento de dados geográficos.
 
 Cada microsserviço será independente, com seu próprio banco de dados, e comunicará com outros serviços por meio de APIs RESTful e mensageria assíncrona. O Traefik atua como proxy reverso e load balancer, gerenciando o roteamento de requisições para os serviços apropriados, enquanto o frontend Angular 18+ consumirá dados através deste proxy.
 
@@ -117,17 +118,13 @@ Cada microsserviço será independente, com seu próprio banco de dados, e comun
 
 **Modelo C4: ... a fazer**
 
-
 ### 3.3. Stack Tecnológica
 
 #### Linguagens de Programação
 
 - **C# 12 (.NET 9+)**: Escolhido para o desenvolvimento do backend devido à sua robustez, desempenho e excelente suporte a aplicações empresariais. O .NET 9 traz recursos avançados de performance e produtividade para microsserviços.
-  
 - **TypeScript 5.2+**: Para o desenvolvimento frontend com Angular 18+, proporcionando segurança de tipo e recursos avançados de linguagem que melhoram a qualidade do código e a experiência de desenvolvimento.
-
 - **SQL**: Para consultas em bancos de dados relacionais.
-
 - **Lua**: Para scripts de automação no desenvolvimento.
 
 #### Frameworks e Bibliotecas
@@ -159,7 +156,7 @@ Cada microsserviço será independente, com seu próprio banco de dados, e comun
 
 **Infraestrutura e DevOps:**
 
-- **Docker e Kubernetes**: Para conteinerização e orquestração.
+- **Docker e Docker Swarm**: Para conteinerização e orquestração.
 - **Traefik**: Para proxy reverso, load balancing e roteamento.
 - **Redis/Dragonfly**: Para cache distribuído.
 - **PostgreSQL**: Como banco de dados principal.
@@ -168,12 +165,9 @@ Cada microsserviço será independente, com seu próprio banco de dados, e comun
 - **Prometheus, Grafana e Loki**: Para monitoramento, alertas e métricas.
 - **GitHub Actions**: Para CI/CD.
 
-#### Ferramentas de Desenvolvimento e Gestão de Projeto
+#### 3.3.6. Ambiente de Hospedagem
 
-- **Rider**: IDE principal para desenvolvimento backend.
-- **Visual Studio Code**: IDE para desenvolvimento frontend.
-- **GitHub**: Para controle de versão, gerenciamento do projeto e documentação.
-- **JMeter/K6**: Para testes de carga.
+Todo o sistema será hospedado em uma **VPS (Servidor Virtual Privado)**, permitindo controle total sobre o ambiente de execução, rede, segurança e escalabilidade. Essa abordagem facilita a implantação de microsserviços, configurações personalizadas de proxy reverso com Traefik e otimizações específicas de desempenho e monitoramento da infraestrutura.
 
 ### 3.4. Considerações de Segurança
 
@@ -249,12 +243,13 @@ O Location404 implementará várias medidas de segurança para proteger dados de
 ### Apêndice B: Estimativa de Recursos
 
 #### Infraestrutura Inicial
-- Docker Swarm para ambiente de produção
-- Banco de dados PostgreSQL gerenciado
-- Cache Redis distribuído 
-- Sistema de mensageria RabbitMQ
+- Docker Swarm para ambiente de produção.
+- Banco de dados PostgreSQL gerenciado.
+- Cache Redis distribuído.
+- Sistema de mensageria RabbitMQ.
 
 ## 7. Avaliações de Professores
+
 
 ### Considerações Professor/a:
 ```
