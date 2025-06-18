@@ -136,7 +136,6 @@ Cada microsserviço será independente, com seu próprio banco de dados, e comun
 - **Entity Framework Core 9+**: ORM para acesso a dados.
 - **Identity Server**: Para autenticação e autorização.
 - **MediatR**: Para implementação do padrão mediator.
-- **AutoMapper**: Para mapeamento entre entidades e DTOs.
 - **Polly**: Para implementação de políticas de resiliência.
 - **SignalR**: Para comunicação em tempo real.
 - **Serilog**: Para logging estruturado.
