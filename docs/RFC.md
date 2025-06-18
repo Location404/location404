@@ -89,7 +89,7 @@ O projeto adota uma arquitetura de microsserviços para garantir escalabilidade 
 
 #### Representação dos Requisitos
 
-##### -<u>[___Diagrama de Casos de Uso___](./diagramas/casos-de-uso.md)</u>
+##### ![Diagrama de Casos de Uso](./diagramas/diagrama-caso-de-uso.excalidraw.png)
 
 ### 3.2. Considerações de Design
 
