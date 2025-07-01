@@ -1,132 +1,106 @@
-direction: right
-vars: {
-  d2-config: {
-    dark-theme-id: 200
-    layout-engine: elk
+# Location404 System Architecture
+
+jogador: {
+  shape: c4-person
+  label: "Jogador\nUsuário que joga partidas, edita perfil e vê rankings"
+  width: 420
+  height: 280
+}
+
+location404: "Location404" {
+  webApp: "Frontend" {
+    shape: rectangle
+    label: "Frontend\n[Vue 3]\n\nInterface web responsiva para interação com o jogo"
+    style.fill: "#1168bd"
+    style.stroke: "#0b4884"
   }
+
+  authService: "UserIdentity-Service" {
+    shape: rectangle
+    label: "UserIdentity-Service\n[.NET]\n\nGerencia cadastro, login, autenticação e perfis de usuário"
+    style.fill: "#1168bd"
+    style.stroke: "#0b4884"
+  }
+
+  gameEngine: "GameCore-Engine" {
+    shape: rectangle
+    label: "GameCore-Engine\n[.NET)\n\nGerencia lógica principal do jogo e cálculo de pontuação"
+    style.fill: "#1168bd"
+    style.stroke: "#0b4884"
+  }
+
+  geoService: "GeoData-Service" {
+    shape: rectangle
+    label: "GeoData-Service\n[.NET]\n\nFornece e gerencia dados geográficos para o jogo"
+    style.fill: "#1168bd"
+    style.stroke: "#0b4884"
+  }
+
+  rankingService: "Ranking-Service" {
+    shape: rectangle
+    label: "Ranking-Service\n[.NET]\n\nArmazena histórico de partidas e gera rankings globais"
+    style.fill: "#1168bd"
+    style.stroke: "#0b4884"
+  }
+
+  userDb: "User DB" {
+    shape: cylinder
+    label: "User DB\n[PostgreSQL]\n\nArmazena dados de usuários e autenticação"
+    style.fill: "#23a2d6"
+    style.stroke: "#105996"
+  }
+
+  gameDb: "Game DB" {
+    shape: cylinder
+    label: "Game DB\n[PostgreSQL]\n\nArmazena dados das partidas, pontuação e histórico"
+    style.fill: "#23a2d6"
+    style.stroke: "#105996"
+  }
+
+  geoDb: "Geo DB" {
+    shape: cylinder
+    label: "Geo DB\n[MongoDB]\n\nArmazena dados geoespaciais utilizados nas partidas"
+    style.fill: "#23a2d6"
+    style.stroke: "#105996"
+  }
+
+  style.fill: "#f0f0f0"
+  style.stroke: "#cccccc"
+  style.stroke-dash: 5
 }
 
-title: |md
-  # Diagrama C4 - Nível de Contêiner - Location404
-| { near: top-center }
-
-// Definições de estilo para simular as formas C4
-// Não há um 'stdlib' C4 nativo no D2, então precisamos definir as formas e estilos.
-// Para uma representação visual mais próxima, usaremos retângulos com rótulos e, para os externos,
-// podemos usar retângulos com estilo tracejado para indicar que são externos ao sistema principal.
-
-// Definições de formas para simular o C4
-jogador: Jogador {
-  shape: person
-  label: "Jogador\n[Person]\nUsuário que joga partidas, edita perfil e vê rankings"
-}
-
+# External Systems
 googleOAuth: "Google OAuth" {
   shape: rectangle
-  label: "Google OAuth\n[System External]\nAutenticação externa via conta Google"
-  style: {
-    stroke-dash: 3
-    fill: "#ececec" // Cor de fundo para diferenciar sistemas externos
-  }
+  label: "Google OAuth\nAutenticação externa via conta Google"
+  style.fill: "#999999"
+  style.stroke: "#666666"
 }
 
 apiMapas: "APIs de Mapas" {
   shape: rectangle
-  label: "APIs de Mapas\n[System External]\nGoogle Maps / OpenStreetMap"
-  style: {
-    stroke-dash: 3
-    fill: "#ececec"
-  }
+  label: "APIs de Mapas\nGoogle Maps / OpenStreetMap"
+  style.fill: "#999999"
+  style.stroke: "#666666"
 }
 
 emailService: "Serviço de E-mail" {
   shape: rectangle
-  label: "Serviço de E-mail\n[System External]\nEnvio de e-mails de recuperação de senha"
-  style: {
-    stroke-dash: 3
-    fill: "#ececec"
-  }
+  label: "Serviço de E-mail\nEnvio de e-mails de recuperação de senha"
+  style.fill: "#999999"
+  style.stroke: "#666666"
 }
 
-location404: "Location404" {
-  shape: rectangle
-  label: "Location404\n[System Boundary]"
-  style: {
-    stroke-dash: 1 // Linha contínua para o boundary
-  }
-
-  webApp: "Frontend Angular" {
-    shape: rectangle
-    label: "Frontend Angular\n[Container: Angular 18+]\nInterface web responsiva para interação com o jogo"
-    style: {
-      fill: "#a8d8e6" // Cor de fundo para containers
-    }
-  }
-  authService: "UserIdentity-Service" {
-    shape: rectangle
-    label: "UserIdentity-Service\n[Container: ASP.NET Core (.NET 9+)]\nGerencia cadastro, login, autenticação e perfis de usuário"
-    style: {
-      fill: "#a8d8e6"
-    }
-  }
-  gameEngine: "GameCore-Engine" {
-    shape: rectangle
-    label: "GameCore-Engine\n[Container: ASP.NET Core (.NET 9+)]\nGerencia lógica principal do jogo e cálculo de pontuação"
-    style: {
-      fill: "#a8d8e6"
-    }
-  }
-  geoService: "GeoData-Service" {
-    shape: rectangle
-    label: "GeoData-Service\n[Container: ASP.NET Core (.NET 9+)]\nFornece e gerencia dados geográficos para o jogo"
-    style: {
-      fill: "#a8d8e6"
-    }
-  }
-  rankingService: "Ranking-Service" {
-    shape: rectangle
-    label: "Ranking-Service\n[Container: ASP.NET Core (.NET 9+)]\nArmazena histórico de partidas e gera rankings globais"
-    style: {
-      fill: "#a8d8e6"
-    }
-  }
-  userDb: "User DB" {
-    shape: database
-    label: "User DB\n[Container: PostgreSQL]\nArmazena dados de usuários e autenticação"
-    style: {
-      fill: "#ffcf87" // Cor de fundo para databases
-    }
-  }
-  gameDb: "Game DB" {
-    shape: database
-    label: "Game DB\n[Container: PostgreSQL]\nArmazena dados das partidas, pontuação e histórico"
-    style: {
-      fill: "#ffcf87"
-    }
-  }
-  geoDb: "Geo DB" {
-    shape: database
-    label: "Geo DB\n[Container: MongoDB]\nArmazena dados geoespaciais utilizados nas partidas"
-    style: {
-      fill: "#ffcf87"
-    }
-  }
-
-  webApp -> authService: "Realiza login e autenticação"
-  webApp -> gameEngine: "Inicia partidas, envia palpites e recebe feedback"
-  webApp -> rankingService: "Consulta rankings e histórico"
-
-  authService -> userDb: "Lê/Grava dados de usuário"
-  authService -> googleOAuth: "Autentica via Google"
-  authService -> emailService: "Envia recuperação de senha"
-
-  gameEngine -> gameDb: "Lê/Grava dados de partidas"
-  gameEngine -> geoService: "Solicita dados geográficos"
-
-  rankingService -> gameDb: "Consulta dados de pontuação"
-
-  geoService -> geoDb: "Lê dados geográficos"
-  geoService -> apiMapas: "Consulta imagens e metadados geográficos"
-}
-
+# Relationships
 jogador -> location404.webApp: "Acessa via navegador"
+location404.webApp -> location404.authService: "Realiza login e autenticação"
+location404.webApp -> location404.gameEngine: "Inicia partidas, envia palpites e recebe feedback"
+location404.webApp -> location404.rankingService: "Consulta rankings e histórico"
+location404.authService -> location404.userDb: "Lê/Grava dados de usuário"
+location404.authService -> googleOAuth: "Autentica via Google"
+location404.authService -> emailService: "Envia recuperação de senha"
+location404.gameEngine -> location404.gameDb: "Lê/Grava dados de partidas"
+location404.gameEngine -> location404.geoService: "Solicita dados geográficos"
+location404.rankingService -> location404.gameDb: "Consulta dados de pontuação"
+location404.geoService -> location404.geoDb: "Lê dados geográficos"
+location404.geoService -> apiMapas: "Consulta imagens e metadados geográficos"

@@ -4,7 +4,7 @@
 - **Curso**: Engenharia de Software
 
 # Resumo
-Este documento apresenta a especificação técnica do Location404, um jogo de geolocalização multijogador em tempo real inspirado no conceito do GeoGuessr. O projeto adota uma arquitetura de microsserviços com C# .NET 9+ e Angular 18+, garantindo escalabilidade, alta disponibilidade e separação clara de responsabilidades. O Location404 proporcionará uma experiência imersiva, permitindo que os usuários testem seus conhecimentos geográficos em diversos cenários e compitam com outros jogadores, sustentado por uma infraestrutura robusta de serviços distribuídos.
+Este documento apresenta a especificação técnica do Location404, um jogo de geolocalização multijogador em tempo real inspirado no conceito do GeoGuessr. O projeto adota uma arquitetura de microsserviços com C# .NET 9+ e Vue 3, garantindo escalabilidade, alta disponibilidade e separação clara de responsabilidades. O Location404 proporcionará uma experiência imersiva, permitindo que os usuários testem seus conhecimentos geográficos em diversos cenários e compitam com outros jogadores, sustentado por uma infraestrutura robusta de serviços distribuídos.
 
 ## 1. Introdução
 
@@ -20,7 +20,7 @@ Desenvolver uma plataforma de jogo de geolocalização completa, baseada em micr
 
 **Objetivos Secundários:**
 - Implementar uma arquitetura de microsserviços escalável e resiliente.
-- Criar uma interface de usuário responsiva e intuitiva com Angular 18+.
+- Criar uma interface de usuário responsiva e intuitiva com Vue 3.
 - Desenvolver um sistema de autenticação seguro e eficiente.
 - Implementar um sistema preciso de geolocalização e cálculo de pontuação.
 - Criar uma infraestrutura de dados que permita expansão futura do jogo.
@@ -31,7 +31,7 @@ Desenvolver uma plataforma de jogo de geolocalização completa, baseada em micr
 ### Tema do Projeto
 O Location404 é uma plataforma de jogo online que desafia os usuários a identificar localizações geográficas com base em imagens de satélite, fotos panorâmicas de ruas e outros recursos visuais. Utilizando dados geográficos precisos, o jogo transporta os jogadores para diversos locais ao redor do mundo, testando seu conhecimento em geografia, culturas, paisagens urbanas e naturais.
 
-O projeto adota uma arquitetura de microsserviços para garantir escalabilidade e manutenibilidade, utilizando C# .NET 9+ para o backend e Angular 18+ para o frontend. Cada componente do sistema é isolado em seu próprio serviço, comunicando-se através de interfaces bem definidas, facilitando a evolução independente e a resiliência do sistema.
+O projeto adota uma arquitetura de microsserviços para garantir escalabilidade e manutenibilidade, utilizando C# .NET 9+ para o backend e Vue 3 para o frontend. Cada componente do sistema é isolado em seu próprio serviço, comunicando-se através de interfaces bem definidas, facilitando a evolução independente e a resiliência do sistema.
 
 ### Problemas a Resolver
 
@@ -89,7 +89,8 @@ O projeto adota uma arquitetura de microsserviços para garantir escalabilidade 
 
 #### Representação dos Requisitos
 
-##### ![Diagrama de Casos de Uso](./diagramas/diagrama-caso-de-uso.excalidraw.png)
+##### Diagrama de Casos de Uso
+##### ![Diagrama de Casos de Uso](./diagramas/diagrama-caso-de-uso.png)
 
 ### 3.2. Considerações de Design
 
@@ -102,7 +103,7 @@ O Location404 seguirá uma arquitetura de microsserviços, com os seguintes comp
 3. **Location404-GameCore-Engine**: Lógica central de jogabilidade.
 4. **Location404-GeoData-Service**: Fornecimento de dados geográficos.
 
-Cada microsserviço será independente, com seu próprio banco de dados, e comunicará com outros serviços por meio de APIs RESTful e mensageria assíncrona. O Traefik atua como proxy reverso e load balancer, gerenciando o roteamento de requisições para os serviços apropriados, enquanto o frontend Angular 18+ consumirá dados através deste proxy.
+Cada microsserviço será independente, com seu próprio banco de dados, e comunicará com outros serviços por meio de APIs RESTful e mensageria assíncrona. O Traefik atua como proxy reverso e load balancer, gerenciando o roteamento de requisições para os serviços apropriados, enquanto o frontend Vue 3 consumirá dados através deste proxy.
 
 #### Padrões de Arquitetura
 
@@ -116,14 +117,15 @@ Cada microsserviço será independente, com seu próprio banco de dados, e comun
 
 #### Modelos C4
 
-**Modelo C4: ... a fazer**
+**Modelo C4: Contêineres**
+##### ![Diagrama-C4-LVL1](./diagramas/diagrama-c4-lvl1.png)
 
 ### 3.3. Stack Tecnológica
 
 #### Linguagens de Programação
 
 - **C# 12 (.NET 9+)**: Escolhido para o desenvolvimento do backend devido à sua robustez, desempenho e excelente suporte a aplicações empresariais. O .NET 9 traz recursos avançados de performance e produtividade para microsserviços.
-- **TypeScript 5.2+**: Para o desenvolvimento frontend com Angular 18+, proporcionando segurança de tipo e recursos avançados de linguagem que melhoram a qualidade do código e a experiência de desenvolvimento.
+- **TypeScript 5.2+**: Para o desenvolvimento frontend com Vue 3, proporcionando segurança de tipo e recursos avançados de linguagem que melhoram a qualidade do código e a experiência de desenvolvimento.
 - **SQL**: Para consultas em bancos de dados relacionais.
 - **Lua**: Para scripts de automação no desenvolvimento.
 
@@ -144,10 +146,9 @@ Cada microsserviço será independente, com seu próprio banco de dados, e comun
 
 **Frontend:**
 
-- **Angular 18+**: Framework principal para o frontend.
+- **Vue 3**: Framework principal para o frontend.
 - **RxJS**: Para programação reativa.
 - **NgRx**: Para gerenciamento de estado.
-- **Angular Material**: Para componentes de UI.
 - **Leaflet/MapboxGL**: Para visualização de mapas.
 - **Chart.js**: Para visualização de dados e estatísticas.
 - **TailwindCSS**: Para estilização.
@@ -213,7 +214,7 @@ O Location404 implementará várias medidas de segurança para proteger dados de
 | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Junho**    | - Finalização e aprovação do RFC<br>- Setup do ambiente de desenvolvimento e CI/CD<br>- Início do desenvolvimento do Location404-Auth-Service                        |
 | **Julho**    | - Implementação do núcleo do Location404-UserIdentity-Service <br>- Integração com autenticação Google<br>- Testes e refinamento do Location404-UserIdentity-Service |
-| **Agosto**   | - Configuração e implementação do Traefik para proxy reverso<br>- Setup inicial do frontend Angular e primeiras integrações                                          |
+| **Agosto**   | - Configuração e implementação do Traefik para proxy reverso<br>- Setup inicial do frontend Vue 3 e primeiras integrações                                          |
 | **Setembro** | - Início do desenvolvimento do GameCore-Engine (lógica básica de jogo)<br>- Desenvolvimento da interface de usuário para jogabilidade básica                         |
 | **Outubro**  | - Integração com serviços de dados geográficos (GeoData-Service)<br>- Implementação do sistema de pontuação e rankings básicos                                       |
 | **Novembro** | - Testes de sistema e otimizações de performance<br>- Refinamento da UX/UI e correções de bugs                                                                       |
@@ -222,7 +223,6 @@ O Location404 implementará várias medidas de segurança para proteger dados de
 ## 5. Referências
 
 - Microsoft. .NET 9 Documentation. https://docs.microsoft.com/en-us/dotnet/
-- Angular Team. Angular 18 Documentation. https://angular.io/docs
 - OWASP. Web Security Testing Guide. https://owasp.org/www-project-web-security-testing-guide/
 - Google Maps Platform. API Documentation. https://developers.google.com/maps/documentation
 - OpenStreetMap. API Documentation. https://wiki.openstreetmap.org/wiki/API
