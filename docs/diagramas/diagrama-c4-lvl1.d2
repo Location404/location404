@@ -45,23 +45,26 @@ location404: "Location404" {
 
   userDb: "User DB" {
     shape: cylinder
-    label: "User DB\n[PostgreSQL]\n\nArmazena dados de usuários e autenticação"
+    label: "User DB\n[PostgreSQL]\n\nArmazena dados de usuários\n e autenticação"
     style.fill: "#23a2d6"
     style.stroke: "#105996"
+    width: 230
   }
 
   gameDb: "Game DB" {
     shape: cylinder
-    label: "Game DB\n[PostgreSQL]\n\nArmazena dados das partidas, pontuação e histórico"
+    label: "Game DB\n[PostgreSQL]\n\nArmazena dados das partidas, \npontuação e histórico"
     style.fill: "#23a2d6"
     style.stroke: "#105996"
+    width: 230
   }
 
   geoDb: "Geo DB" {
     shape: cylinder
-    label: "Geo DB\n[MongoDB]\n\nArmazena dados geoespaciais utilizados nas partidas"
+    label: "Geo DB\n[MongoDB]\n\nArmazena dados geoespaciais \nutilizados nas partidas"
     style.fill: "#23a2d6"
     style.stroke: "#105996"
+    width: 230
   }
 
   style.fill: "#f0f0f0"
@@ -73,6 +76,13 @@ location404: "Location404" {
 googleOAuth: "Google OAuth" {
   shape: rectangle
   label: "Google OAuth\nAutenticação externa via conta Google"
+  style.fill: "#999999"
+  style.stroke: "#666666"
+}
+
+facebookOAuth: "Facebook OAuth" {
+  shape: rectangle
+  label: "Facebook OAuth\nAutenticação externa via conta Facebook"
   style.fill: "#999999"
   style.stroke: "#666666"
 }
@@ -98,6 +108,7 @@ location404.webApp -> location404.gameEngine: "Inicia partidas, envia palpites e
 location404.webApp -> location404.rankingService: "Consulta rankings e histórico"
 location404.authService -> location404.userDb: "Lê/Grava dados de usuário"
 location404.authService -> googleOAuth: "Autentica via Google"
+location404.authService -> facebookOAuth: "Autentica via Facebook"
 location404.authService -> emailService: "Envia recuperação de senha"
 location404.gameEngine -> location404.gameDb: "Lê/Grava dados de partidas"
 location404.gameEngine -> location404.geoService: "Solicita dados geográficos"

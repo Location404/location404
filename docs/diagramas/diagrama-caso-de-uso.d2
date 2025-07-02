@@ -1,40 +1,93 @@
-jogador: Jogador {
-  shape: c4-person
-  label: "Usuário que joga partidas, \nedita perfil e vê rankings"
-  height: 180
-  width: 220
+direction: right
+
+Usuario: {
+  shape: person
+  label: "Usuário"
+  width: 160
+  height: 200
 }
 
-location404: Location404 {
-  shape: rectangle
-  label: "Plataforma de jogo de geolocalização multiplayer em tempo real"
-}
+# Container para os casos de uso
+Location404: {
+  label: "Location404 - Casos de Uso"
 
-googleOAuth: Google OAuth {
-  shape: rectangle
-  label: "Autenticação via conta Google"
-  style: {
-    stroke-dash: 3
+  UC01: {
+    shape: oval
+    label: "UC01 - Registrar-se"
+  }
+
+  UC02: {
+    shape: oval
+    label: "UC02 - Autenticar-se"
+  }
+
+  UC03: {
+    shape: oval
+    label: "UC03 - Iniciar nova partida"
+  }
+
+  UC04: {
+    shape: oval
+    label: "UC04 - Receber localização aleatória"
+  }
+
+  UC05: {
+    shape: oval
+    label: "UC05 - Submeter palpite de localização"
+  }
+
+  UC06: {
+    shape: oval
+    label: "UC06 - Visualizar histórico de partidas"
+  }
+
+  UC07: {
+    shape: oval
+    label: "UC07 - Visualizar rankings"
+  }
+
+  UC08: {
+    shape: oval
+    label: "UC08 - Adicionar/gerenciar amigos"
+  }
+
+  UC09: {
+    shape: oval
+    label: "UC09 - Desafiar amigos para partida"
+  }
+
+  UC10: {
+    shape: oval
+    label: "UC10 - Editar perfil"
+  }
+
+  UC11: {
+    shape: oval
+    label: "UC11 - Recuperar senha"
+  }
+
+  UC12: {
+    shape: oval
+    label: "UC12 - Visualizar estatísticas"
+  }
+
+  UC13: {
+    shape: oval
+    label: "UC13 - Visualizar nível/experiência"
   }
 }
 
-apiMapas: APIs de Mapas {
-  shape: rectangle
-  label: "Dados geográficos e imagens (Google Maps / OpenStreetMap)"
-  style: {
-    stroke-dash: 3
-  }
-}
-
-emailService: Serviço de E-mail {
-  shape: rectangle
-  label: "Envio de e-mails de recuperação de senha"
-  style: {
-    stroke-dash: 3
-  }
-}
-
-jogador -> location404: "Interage via navegador web"
-location404 -> googleOAuth: "Autentica usuários via conta Google"
-location404 -> apiMapas: "Consulta dados e imagens geográficas"
-location404 -> emailService: "Envia e-mails de recuperação de senha"
+# Conexões do Usuário com os Casos de Uso
+Usuario -> Location404.UC01
+Usuario -> Location404.UC02
+Usuario -> Location404.UC03
+Usuario -> Location404.UC04
+Usuario -> Location404.UC05
+Usuario -> Location404.UC06
+Usuario -> Location404.UC07
+Usuario -> Location404.UC08
+Usuario -> Location404.UC09
+Usuario -> Location404.UC10
+Usuario -> Location404.UC11
+Usuario -> Location404.UC12
+Usuario -> Location404.UC13
