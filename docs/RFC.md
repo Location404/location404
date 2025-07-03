@@ -349,11 +349,11 @@ O Location404 implementará múltiplas camadas de segurança:
 | **Monitoramento** | Prometheus + Grafana + Loki | Observabilidade completa |
 | **Backup** | Backup diário automático, retenção 30 dias | Proteção de dados críticos |
 
-#### Custos Estimados (Mensais)
-- **VPS Principal**: R$ 22
+#### Custos Estimados
+- **VPS Principal**: R$ 350
 - **Domínio e SSL**: R$ 40
 - **APIs Externas**: R$ 0-100 (baseado no uso)
-- **Total Estimado**: R$ 500/mes
+- **Total Estimado**: R$ 500
 
 ### Apêndice C: Plano de Testes
 
