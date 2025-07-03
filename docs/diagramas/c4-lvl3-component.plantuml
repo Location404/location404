@@ -1,0 +1,163 @@
+@startuml Location404-C4-Level3-Components
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+title Location404 - Diagrama C4 Nível 3 (Componentes)
+
+Person(user, "Jogador", "Usuário da plataforma Location404")
+System_Ext(google_maps, "Google Maps API", "Fornece dados geográficos e imagens")
+System_Ext(mapbox, "Mapbox API", "Fornece mapas e dados geoespaciais")
+System_Ext(oauth_google, "Google OAuth", "Serviço de autenticação")
+
+Container_Boundary(web_app, "Location404 Web App") {
+    Component(vue_router, "Vue Router", "Vue 3", "Gerenciamento de rotas SPA")
+    Component(pinia_store, "Pinia Store", "Vue 3", "Gerenciamento de estado global")
+    Component(leaflet_maps, "Leaflet Maps", "JavaScript", "Visualização de mapas interativos")
+    Component(axios_client, "Axios HTTP Client", "JavaScript", "Cliente HTTP para APIs")
+    Component(auth_composable, "Auth Composable", "Vue 3", "Lógica de autenticação")
+    Component(game_composable, "Game Composable", "Vue 3", "Lógica de jogo")
+}
+
+Container_Boundary(api_gateway, "Traefik API Gateway") {
+    Component(load_balancer, "Load Balancer", "Traefik", "Distribuição de carga")
+    Component(ssl_termination, "SSL Termination", "Traefik", "Terminação SSL/TLS")
+    Component(rate_limiter, "Rate Limiter", "Traefik", "Controle de taxa de requisições")
+    Component(auth_middleware, "Auth Middleware", "Traefik", "Validação de tokens JWT")
+}
+
+Container_Boundary(user_identity, "UserIdentity Service") {
+    Component(auth_controller, "Auth Controller", "ASP.NET Core", "Endpoints de autenticação")
+    Component(user_controller, "User Controller", "ASP.NET Core", "Gerenciamento de usuários")
+    Component(jwt_service, "JWT Service", "C#", "Geração e validação de tokens")
+    Component(oauth_service, "OAuth Service", "C#", "Integração com provedores OAuth")
+    Component(user_repository, "User Repository", "EF Core", "Acesso a dados de usuários")
+    Component(identity_mediator, "Identity Mediator", "MediatR", "Mediador para comandos/queries")
+}
+
+Container_Boundary(game_core, "GameCore Engine") {
+    Component(game_controller, "Game Controller", "ASP.NET Core", "Endpoints de jogo")
+    Component(score_controller, "Score Controller", "ASP.NET Core", "Cálculo de pontuação")
+    Component(game_engine, "Game Engine", "C#", "Lógica central do jogo")
+    Component(scoring_service, "Scoring Service", "C#", "Algoritmos de pontuação")
+    Component(game_repository, "Game Repository", "EF Core", "Persistência de partidas")
+    Component(location_service, "Location Service", "C#", "Gerenciamento de localizações")
+    Component(game_mediator, "Game Mediator", "MediatR", "Mediador para comandos/queries")
+}
+
+Container_Boundary(geodata, "GeoData Service") {
+    Component(geo_controller, "Geo Controller", "ASP.NET Core", "Endpoints geográficos")
+    Component(maps_service, "Maps Service", "C#", "Integração com APIs de mapas")
+    Component(location_cache, "Location Cache", "Redis", "Cache de localizações")
+    Component(geo_repository, "Geo Repository", "MongoDB", "Dados geoespaciais")
+    Component(geo_mediator, "Geo Mediator", "MediatR", "Mediador para comandos/queries")
+}
+
+Container_Boundary(social, "Social Service") {
+    Component(social_controller, "Social Controller", "ASP.NET Core", "Endpoints sociais")
+    Component(ranking_service, "Ranking Service", "C#", "Gerenciamento de rankings")
+    Component(friend_service, "Friend Service", "C#", "Sistema de amizades")
+    Component(social_repository, "Social Repository", "EF Core", "Dados sociais")
+    Component(social_mediator, "Social Mediator", "MediatR", "Mediador para comandos/queries")
+}
+
+Container_Boundary(observability_sdk, "Location404.Observability.Sdk") {
+    Component(metrics_collector, "Metrics Collector", "C#", "Coleta automática de métricas")
+    Component(log_enricher, "Log Enricher", "Serilog", "Enriquecimento de logs estruturados")
+    Component(trace_exporter, "Trace Exporter", "OpenTelemetry", "Exportação de traces distribuídos")
+    Component(health_check, "Health Check", "ASP.NET Core", "Verificação de saúde dos serviços")
+}
+
+ContainerDb(postgresql, "PostgreSQL", "Banco de dados principal", "Dados transacionais")
+ContainerDb(mongodb, "MongoDB", "Banco de dados NoSQL", "Dados geoespaciais e analytics")
+ContainerDb(redis, "Redis", "Cache distribuído", "Sessões e cache")
+Container(rabbitmq, "RabbitMQ", "Message Broker", "Comunicação assíncrona")
+
+Container_Boundary(monitoring, "Monitoring Stack") {
+    Component(prometheus, "Prometheus", "Metrics DB", "Coleta de métricas")
+    Component(grafana, "Grafana", "Dashboard", "Visualização de métricas")
+    Component(loki, "Loki", "Log Aggregation", "Agregação de logs")
+    Component(jaeger, "Jaeger", "Tracing", "Distributed tracing")
+}
+
+' Relacionamentos Web App
+Rel(user, vue_router, "Navega")
+Rel(vue_router, pinia_store, "Gerencia estado")
+Rel(pinia_store, axios_client, "Faz requisições")
+Rel(axios_client, load_balancer, "HTTPS requests")
+Rel(auth_composable, axios_client, "Autentica")
+Rel(game_composable, leaflet_maps, "Renderiza mapas")
+
+' Relacionamentos API Gateway
+Rel(load_balancer, ssl_termination, "Termina SSL")
+Rel(ssl_termination, rate_limiter, "Controla taxa")
+Rel(rate_limiter, auth_middleware, "Valida auth")
+Rel(auth_middleware, auth_controller, "Roteia auth")
+Rel(auth_middleware, game_controller, "Roteia game")
+Rel(auth_middleware, geo_controller, "Roteia geo")
+Rel(auth_middleware, social_controller, "Roteia social")
+
+' Relacionamentos UserIdentity
+Rel(auth_controller, identity_mediator, "Processa comandos")
+Rel(user_controller, identity_mediator, "Processa comandos")
+Rel(identity_mediator, jwt_service, "Gera tokens")
+Rel(identity_mediator, oauth_service, "OAuth flow")
+Rel(identity_mediator, user_repository, "Acessa dados")
+Rel(user_repository, postgresql, "Persiste", "SQL")
+Rel(oauth_service, oauth_google, "Autentica", "HTTPS")
+
+' Relacionamentos GameCore
+Rel(game_controller, game_mediator, "Processa comandos")
+Rel(score_controller, game_mediator, "Processa comandos")
+Rel(game_mediator, game_engine, "Executa lógica")
+Rel(game_mediator, scoring_service, "Calcula pontos")
+Rel(game_mediator, location_service, "Gerencia locais")
+Rel(game_mediator, game_repository, "Persiste dados")
+Rel(game_repository, postgresql, "Persiste", "SQL")
+Rel(location_service, geo_controller, "Solicita dados", "HTTP")
+
+' Relacionamentos GeoData
+Rel(geo_controller, geo_mediator, "Processa comandos")
+Rel(geo_mediator, maps_service, "Obtém dados")
+Rel(geo_mediator, location_cache, "Cache dados")
+Rel(geo_mediator, geo_repository, "Persiste dados")
+Rel(maps_service, google_maps, "Obtém mapas", "HTTPS")
+Rel(maps_service, mapbox, "Obtém dados", "HTTPS")
+Rel(location_cache, redis, "Cache", "Redis Protocol")
+Rel(geo_repository, mongodb, "Persiste", "MongoDB Protocol")
+
+' Relacionamentos Social
+Rel(social_controller, social_mediator, "Processa comandos")
+Rel(social_mediator, ranking_service, "Calcula rankings")
+Rel(social_mediator, friend_service, "Gerencia amigos")
+Rel(social_mediator, social_repository, "Persiste dados")
+Rel(social_repository, postgresql, "Persiste", "SQL")
+
+' Relacionamentos Observability SDK
+Rel(metrics_collector, prometheus, "Exporta métricas", "HTTP")
+Rel(log_enricher, loki, "Envia logs", "HTTP")
+Rel(trace_exporter, jaeger, "Exporta traces", "HTTP")
+Rel(health_check, prometheus, "Health metrics", "HTTP")
+
+' SDK instalado nos microsserviços
+Rel(auth_controller, metrics_collector, "Usa SDK")
+Rel(game_controller, metrics_collector, "Usa SDK")
+Rel(geo_controller, metrics_collector, "Usa SDK")
+Rel(social_controller, metrics_collector, "Usa SDK")
+Rel(identity_mediator, log_enricher, "Usa SDK")
+Rel(game_mediator, log_enricher, "Usa SDK")
+Rel(geo_mediator, log_enricher, "Usa SDK")
+Rel(social_mediator, log_enricher, "Usa SDK")
+
+' Relacionamentos Messaging
+Rel(game_engine, rabbitmq, "Publica eventos", "AMQP")
+Rel(scoring_service, rabbitmq, "Publica eventos", "AMQP")
+Rel(ranking_service, rabbitmq, "Publica eventos", "AMQP")
+Rel(rabbitmq, mongodb, "Persiste eventos", "MongoDB Protocol")
+
+' Relacionamentos Monitoring
+Rel(prometheus, metrics_collector, "Coleta métricas via SDK")
+Rel(grafana, prometheus, "Visualiza métricas")
+Rel(loki, log_enricher, "Recebe logs via SDK")
+Rel(jaeger, trace_exporter, "Recebe traces via SDK")
+
+SHOW_LEGEND()
+@enduml
