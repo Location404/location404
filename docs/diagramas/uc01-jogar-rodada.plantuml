@@ -31,8 +31,6 @@ rectangle "Sistema Location404" {
   }
 }
 
-actor "Sistema Externo" as sistema
-
 jogador --> selecionar_modo
 jogador --> convidar_amigo
 
@@ -43,7 +41,6 @@ amigo --> recusar_convite
 
 aceitar_convite --> iniciar_partida
 iniciar_partida --> criar_partida
-criar_partida --> sistema
 
 selecionar_modo ..> convidar_amigo : "<<include>>\n[modo multiplayer]"
 recusar_convite ..> selecionar_modo : "<<extend>>"
@@ -56,9 +53,6 @@ exibir_resultado_final ..> visualizar_estatisticas_finais : "<<extend>>"
 gerar_resultado ..> exibir_resultado_final : "<<include>>"
 
 enviar_palpite --> calcular_pontuacao
-calcular_pontuacao --> sistema
 iniciar_partida --> gerar_resultado
-gerar_resultado --> sistema
 gerar_resultado --> gravar_estatisticas
-gravar_estatisticas --> sistema
 @enduml
