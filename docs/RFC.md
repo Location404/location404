@@ -104,11 +104,11 @@ O projeto adota uma arquitetura de microsserviços para garantir escalabilidade 
 
 #### Representação dos Requisitos
 
-##### Diagrama de Casos de Uso
+##### Diagrama de Casos de Uso - UC01: Jogar Partida
 *![Diagrama de Casos de Uso](./diagramas/uc01-jogar-rodada.png)*
 
 **Casos de Uso Principais:**
-- **UC01**: Jogar Rodada
+- **UC01**: Jogar Partida
 - **UC02**: Autenticar Usuário
 - **UC02**: Gerenciar Perfil
 - **UC03**: Calcular Pontuação
