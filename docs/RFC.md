@@ -127,14 +127,14 @@ O Location404 seguirá uma arquitetura de microsserviços baseada em Domain-Driv
 3. **Location404-GameCore-Engine**: Lógica central de jogabilidade, cálculo de pontuações e mecânicas de jogo.
 4. **Location404-GeoData-Service**: Fornecimento e cache de dados geográficos, integração com APIs externas.
 5. **Location404-Social-Service**: Gerenciamento de amizades, rankings e interações sociais.
-6. **Location404-Analytics-Service**: Coleta e processamento de métricas de jogo e comportamento do usuário.
-
+6. **Location404.Observability-Sdk**: SDK interno compartilhado para instrumentação padronizada de todos os serviços, incluindo métricas (Prometheus), tracing distribuído (Jaeger) e logs estruturados (Loki).
+  
 **Componentes de Infraestrutura:**
 - **Redis Cluster**: Cache distribuído para sessões e dados frequentemente acessados.
 - **PostgreSQL Cluster**: Banco de dados principal com replicação read-only.
 - **MongoDB**: Armazenamento de dados geoespaciais e logs.
 - **RabbitMQ**: Message broker para comunicação assíncrona entre serviços.
-- **Prometheus + Grafana**: Stack de monitoramento e métricas.
+- **Prometheus + Grafana + Loki**: Stack de monitoramento e métricas.
 
 #### Padrões de Arquitetura
 
@@ -273,7 +273,6 @@ O Location404 implementará múltiplas camadas de segurança:
 - **Detecção de anomalias** em tempo real com alertas automáticos
 - **Métricas de segurança** no dashboard de monitoramento
 - **Audit logs** para trilha de auditoria completa
-- **Incident response plan** documentado
 
 #### 3.4.6. Segurança Específica do Jogo
 - **Validação server-side** de todas as ações de jogo
@@ -286,7 +285,7 @@ O Location404 implementará múltiplas camadas de segurança:
 1. **Autenticação**: Cliente → Traefik → UserIdentity-Service → JWT retornado
 2. **Iniciar Jogo**: Cliente → Traefik → GameCore-Engine → GeoData-Service → Response
 3. **Submeter Resposta**: Cliente → Traefik → GameCore-Engine → Cálculo → Social-Service (ranking)
-4. **Analytics**: Todos os serviços → RabbitMQ → Analytics-Service → MongoDB
+4. **Observabilidade**: Todos os serviços → Location404.Observability-Sdk → Prometheus, Loki, Jaeger
 
 ### 4.2. Estratégia de Cache
 - **Redis**: Cache de sessões (TTL: 1h), dados de jogo temporários (TTL: 5min)
@@ -301,14 +300,14 @@ O Location404 implementará múltiplas camadas de segurança:
 
 ### Cronograma de Desenvolvimento Revisado
 
-| Período | Atividades |
-|---------|------------|
-| **Julho 2025** | - Finalização e aprovação do RFC<br>- Setup do ambiente de desenvolvimento completo<br>- Configuração de CI/CD com GitHub Actions<br>- Implementação inicial do UserIdentity-Service |
-| **Agosto 2025** | - Conclusão do UserIdentity-Service com OAuth<br>- Setup do Traefik com SSL automático<br>- Desenvolvimento inicial do frontend Vue 3<br>- Configuração de monitoramento básico |
-| **Setembro 2025** | - Desenvolvimento do GameCore-Engine<br>- Integração com APIs de mapas<br>- Implementação do GeoData-Service<br>- Interface de usuário para jogabilidade básica |
-| **Outubro 2025** | - Sistema de pontuação e rankings<br>- Desenvolvimento do Social-Service<br>- Implementação de testes automatizados<br>- Otimizações de performance |
-| **Novembro 2025** | - Sistema de analytics<br>- Testes de carga e stress<br>- Refinamento da UX/UI<br>- Implementação de recursos de segurança avançados |
-| **Dezembro 2025** | - Testes finais de sistema<br>- Documentação completa<br>- Deploy em produção<br>- Preparação para apresentação final |
+| Período           | Atividades                                                                                                                                                                                                                         |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Julho 2025**    | - Finalização e aprovação do RFC<br>- Setup do ambiente de desenvolvimento completo<br>- Configuração de CI/CD com GitHub Actions<br>- Implementação inicial do UserIdentity-Service<br>- Criação do Location404.Observability-Sdk |
+| **Agosto 2025**   | - Conclusão do UserIdentity-Service com OAuth<br>- Setup do Traefik com SSL automático<br>- Desenvolvimento inicial do frontend Vue 3<br>- Configuração de monitoramento básico via Observability-Sdk                              |
+| **Setembro 2025** | - Desenvolvimento do GameCore-Engine<br>- Integração com APIs de mapas<br>- Implementação do GeoData-Service<br>- Interface de usuário para jogabilidade básica                                                                    |
+| **Outubro 2025**  | - Sistema de pontuação e rankings<br>- Desenvolvimento do Social-Service<br>- Implementação de testes automatizados<br>- Otimizações de performance                                                                                |
+| **Novembro 2025** | - Sistema de analytics customizado via Observability-Sdk<br>- Testes de carga e stress<br>- Refinamento da UX/UI<br>- Implementação de recursos de segurança avançados                                                             |
+| **Dezembro 2025** | - Testes finais de sistema<br>- Documentação completa<br>- Deploy em produção<br>- Preparação para apresentação final                                                                                                              |
 
 ### Métricas de Sucesso
 - **Performance**: 95% das requisições < 500ms
