@@ -105,17 +105,16 @@ O projeto adota uma arquitetura de microsserviços para garantir escalabilidade 
 #### Representação dos Requisitos
 
 ##### Diagrama de Casos de Uso
-*![Diagrama de Casos de Uso](./diagramas/diagrama-caso-de-uso.svg)*
+*![Diagrama de Casos de Uso](./diagramas/uc01-jogar-rodada.png)*
 
 **Casos de Uso Principais:**
-- **UC01**: Autenticar Usuário
+- **UC01**: Jogar Rodada
+- **UC02**: Autenticar Usuário
 - **UC02**: Gerenciar Perfil
-- **UC03**: Iniciar Partida
-- **UC04**: Jogar Rodada
-- **UC05**: Calcular Pontuação
-- **UC06**: Visualizar Rankings
-- **UC07**: Gerenciar Amizades
-- **UC08**: Visualizar Estatísticas
+- **UC03**: Calcular Pontuação
+- **UC04**: Visualizar Rankings
+- **UC05**: Gerenciar Amizades
+- **UC06**: Visualizar Estatísticas
 
 ### 3.2. Considerações de Design
 
@@ -155,8 +154,13 @@ O Location404 seguirá uma arquitetura de microsserviços baseada em Domain-Driv
 **Modelo C4: Contexto do Sistema**
 *O diagrama mostra o Location404 interagindo com usuários finais, APIs de mapas externos (Google Maps, Mapbox) e serviços de autenticação (Google OAuth).*
 
+**Modelo C4: Context**
+
+*![Diagrama-C4-LVL1](./diagramas/c4-lvl1-context.png)*
+
 **Modelo C4: Contêineres**
-*![Diagrama-C4-LVL1](./diagramas/diagrama-c4-lvl1.svg)*
+
+*![Diagrama-C4-LVL2](./diagramas/c4-lvl2-container.png)*
 
 ### 3.3. Stack Tecnológica
 
