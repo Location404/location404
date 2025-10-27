@@ -129,11 +129,10 @@ O Location404 seguirá uma arquitetura de microsserviços baseada em Domain-Driv
 5. **Location404.Observability-Sdk**: SDK interno compartilhado para instrumentação padronizada de todos os serviços, incluindo métricas (Prometheus), tracing distribuído (Jaeger) e logs estruturados (Loki).
   
 **Componentes de Infraestrutura:**
-- **Redis Cluster**: Cache distribuído para sessões e dados frequentemente acessados.
-- **PostgreSQL Cluster**: Banco de dados principal com replicação read-only.
-- **MongoDB**: Armazenamento de dados geoespaciais e logs.
+- **Dragonfly**: Cache distribuído Redis-compatible para fila de matchmaking e estado de partidas.
+- **PostgreSQL**: Banco de dados principal (2 instâncias: auth + data).
 - **RabbitMQ**: Message broker para comunicação assíncrona entre serviços.
-- **Prometheus + Grafana + Loki**: Stack de monitoramento e métricas.
+- **Prometheus + Grafana + Loki**: Stack de monitoramento e métricas (futuro).
 
 #### Padrões de Arquitetura
 
@@ -183,7 +182,7 @@ O Location404 seguirá uma arquitetura de microsserviços baseada em Domain-Driv
 - **Serilog**: Para logging estruturado com sinks para múltiplos destinos.
 - **OpenAPI/Scalar**: Para documentação automática de APIs.
 - **Hangfire**: Para processamento de jobs em background.
-- **StackExchange.Redis**: Cliente Redis para cache distribuído.
+- **StackExchange.Redis**: Cliente .NET para Dragonfly (Redis-compatible).
 - **RabbitMQ.Client**: Para integração com message broker.
 
 **Testes:**
@@ -212,15 +211,13 @@ O Location404 seguirá uma arquitetura de microsserviços baseada em Domain-Driv
 **Infraestrutura e DevOps:**
 
 - **Docker & Docker Compose**: Para conteinerização e desenvolvimento local.
-- **Docker Swarm**: Para orquestração em produção.
-- **Traefik v3**: Para proxy reverso, load balancing e SSL automático.
-- **Redis 7+**: Para cache distribuído e sessões.
-- **PostgreSQL 16+**: Como banco de dados principal com extensões PostGIS.
-- **MongoDB 7+**: Para dados geoespaciais e analytics.
-- **RabbitMQ 3.12+**: Para mensageria assíncrona entre serviços.
-- **Prometheus & Grafana**: Para métricas e dashboards.
-- **Loki**: Para agregação de logs.
-- **Jaeger**: Para distributed tracing.
+- **Traefik v3**: Para proxy reverso, load balancing e SSL automático (futuro).
+- **Dragonfly**: Cache distribuído Redis-compatible para matchmaking e estado de jogo.
+- **PostgreSQL 16+**: Banco de dados principal (2 instâncias: auth + data).
+- **RabbitMQ 3.12+**: Para mensageria assíncrona entre serviços (match.ended events).
+- **Prometheus & Grafana**: Para métricas e dashboards (futuro).
+- **Loki**: Para agregação de logs (futuro).
+- **Jaeger**: Para distributed tracing (futuro).
 - **GitHub Actions**: Para CI/CD automatizado.
 
 #### Ambiente de Hospedagem
@@ -282,20 +279,19 @@ O Location404 implementará múltiplas camadas de segurança:
 
 ### 4.1. Fluxo de Dados
 1. **Autenticação**: Cliente → Traefik → location404-auth → JWT retornado
-2. **Matchmaking**: Cliente → SignalR → location404-game → Redis (fila de matchmaking)
+2. **Matchmaking**: Cliente → SignalR → location404-game → Dragonfly (fila de matchmaking)
 3. **Iniciar Rodada**: location404-game → location404-data (buscar localização aleatória) → Cliente
 4. **Submeter Palpite**: Cliente → SignalR → location404-game → Cálculo (Haversine) → RabbitMQ
 5. **Persistir Partida**: location404-game → RabbitMQ → location404-data (salvar match + atualizar stats)
 6. **Observabilidade**: Todos os serviços → Location404.Observability-Sdk → Prometheus, Loki, Jaeger
 
 ### 4.2. Estratégia de Cache
-- **Redis**: Cache de sessões (TTL: 1h), dados de jogo temporários (TTL: 5min)
-- **Application-level**: Cache de dados geográficos estáticos (TTL: 24h)
+- **Dragonfly**: Fila de matchmaking (SortedSet), estado de partidas ativas (TTL: 2h), palpites temporários (TTL: 5min)
 
 ### 4.3. Estratégia de Banco de Dados
-- **PostgreSQL**: Dados transacionais (usuários, partidas, rankings)
-- **MongoDB**: Dados geoespaciais, analytics, logs estruturados
-- **Redis**: Cache, sessões, dados temporários de jogo
+- **PostgreSQL (location404-auth)**: Usuários, senhas hash (BCrypt), refresh tokens
+- **PostgreSQL (location404-data)**: 60 localizações seed, histórico de partidas, rodadas, estatísticas de jogadores (ELO)
+- **Dragonfly**: Cache distribuído, matchmaking queue, estado temporário de jogo
 
 ## 5. Próximos Passos
 
@@ -325,7 +321,7 @@ O Location404 implementará múltiplas camadas de segurança:
 4. Google Developers. (2024). *Maps Platform API Documentation*. Disponível em: https://developers.google.com/maps/documentation
 5. OpenStreetMap Foundation. (2024). *API Documentation*. Disponível em: https://wiki.openstreetmap.org/wiki/API
 6. Traefik Labs. (2024). *Traefik v3.0 Documentation*. Disponível em: https://doc.traefik.io/traefik/
-7. Redis Ltd. (2024). *Redis Documentation*. Disponível em: https://redis.io/documentation
+7. DragonflyDB. (2024). *Dragonfly Documentation*. Disponível em: https://www.dragonflydb.io/docs
 8. PostgreSQL Global Development Group. (2024). *PostgreSQL Documentation*. Disponível em: https://www.postgresql.org/docs/
 9. Newman, S. (2021). *Building Microservices: Designing Fine-Grained Systems*. 2nd Edition. O'Reilly Media.
 
@@ -349,7 +345,7 @@ O Location404 implementará múltiplas camadas de segurança:
 |------------|--------------|---------------|
 | **Servidor Principal** | 8 vCPUs, 32GB RAM, 500GB NVMe | Comportar todos os microsserviços com margem |
 | **Banco PostgreSQL** | Cluster com replicação read-only | Alta disponibilidade e performance |
-| **Cache Redis** | Cluster 3 nós, 8GB RAM total | Cache distribuído e redundante |
+| **Dragonfly** | Instância única, 4GB RAM | Cache distribuído Redis-compatible |
 | **Monitoramento** | Prometheus + Grafana + Loki | Observabilidade completa |
 | **Backup** | Backup diário automático, retenção 30 dias | Proteção de dados críticos |
 
@@ -369,8 +365,8 @@ O Location404 implementará múltiplas camadas de segurança:
 
 #### Testes de Integração
 - APIs entre microsserviços
-- Integração com bancos de dados
-- Cache Redis
+- Integração com PostgreSQL
+- Cache Dragonfly
 - Message queue (RabbitMQ)
 
 #### Testes End-to-End
